@@ -1,10 +1,31 @@
 {
-  "name": "cubejs-project-template",
+  "name": "@nh-app/cubejs-server",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "cubejs-server"
+    "start": "PORT=4000 node index.js",
+    "worker": "PORT=4001 node index.js",
+    "start-dev": "DEBUG_LOG=true NODE_ENV=development PORT=4000 node index.js",
+    "worker-dev": "DEBUG_LOG=true NODE_ENV=development PORT=4001 node index.js",
+    "worker-local": "DEBUG_LOG=true CUBEJS_LOG_LEVEL=trace REDIS_HOST=127.0.0.1 NODE_ENV=development DB_HOST=test-db-copy.cteizy5r8ivz.eu-west-1.rds.amazonaws.com PORT=4003 node_modules/nodemon/bin/nodemon.js index.js",
+    "dev": "NODE_ENV=development node index.js",
+    "lint": "eslint  \"schema/*.{js,jsx}\"  \"group-schema/*.{js,jsx}\"",
+    "fix": "eslint  \"schema/*.{js,jsx}\"  \"group-schema/*.{js,jsx}\" --fix"
   },
-  "template": "docker",
-  "templateVersion": "0.28.19"
+  "dependencies": {
+    "@cubejs-backend/mysql-driver": "^0.29.20",
+    "@cubejs-backend/server": "^0.29.20",
+    "dotenv-defaults": "^2.0.2",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.18.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jsx-a11y": "^6.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1"
+  }
 }
