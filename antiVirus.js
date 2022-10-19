@@ -173,39 +173,39 @@ cube(`antivirus`, {
     },
   },
   preAggregations: {
-    antivirusday: {
-      type: `rollup`,
-      measures: [Count, AVOnCount, AVOffCount],
-      dimensions: [Device,
-        Status,
-        AVUpdateStatus,
-        avDisplayName,
-        TypeOfRun, 
-        Site, 
-        Version,
-        manufacturer,
-        chassistype,
-        registeredprocessor,
-        processorfamily,
-        processormanufacturer,
-        memorysize,
-        operatingsystem,
-        ],
-      timeDimension: autoTime,
-      granularity: `day`,
-      partitionGranularity: `day`,
-      scheduledRefresh: true,
-      refreshKey: {
-        every: `1800 seconds`,
-        incremental: true,
-        updateWindow: `6 hour`
-      },
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
-    },
+    // antivirusday: {
+    //   type: `rollup`,
+    //   measures: [Count, AVOnCount, AVOffCount],
+    //   dimensions: [Device,
+    //     Status,
+    //     AVUpdateStatus,
+    //     avDisplayName,
+    //     TypeOfRun, 
+    //     Site, 
+    //     Version,
+    //     manufacturer,
+    //     chassistype,
+    //     registeredprocessor,
+    //     processorfamily,
+    //     processormanufacturer,
+    //     memorysize,
+    //     operatingsystem,
+    //     ],
+    //   timeDimension: autoTime,
+    //   granularity: `day`,
+    //   partitionGranularity: `day`,
+    //   scheduledRefresh: true,
+    //   refreshKey: {
+    //     every: `1800 seconds`,
+    //     incremental: true,
+    //     updateWindow: `6 hour`
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // },
   }
 });
