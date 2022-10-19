@@ -1,6 +1,6 @@
 import { db_prefix,preparePreagregations } from '../prefix';
 
-cube(`A18`, {
+cube(`A18_Physical_Memory_Array`, {
   sql: `
   WITH recursive Date_Ranges AS (
     select
@@ -54,8 +54,8 @@ cube(`A18`, {
   )}
     and ad.dataid = 18
 `,
-  title: `Physical Memory Array v2`,
-  description: `Physical Memory Array v2`,
+  title: `Physical Memory Array`,
+  description: `Physical Memory Array`,
 
   joins: {
     GA: {

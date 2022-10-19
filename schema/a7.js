@@ -1,6 +1,6 @@
 import { db_prefix,preparePreagregations } from '../prefix';
 
-cube(`a7`, {
+cube(`A7_DNS_Server_Details`, {
   sql: `
   WITH recursive Date_Ranges AS (
     select
@@ -54,8 +54,8 @@ cube(`a7`, {
   )}
     and ad.dataid = 7
 `,
-  title: `DNS Servers V2`,
-  description: `DNS Servers V2`,
+  title: `DNS Servers`,
+  description: `DNS Servers`,
 
 
   joins: {

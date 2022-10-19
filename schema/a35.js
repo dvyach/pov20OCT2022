@@ -1,6 +1,6 @@
 import { db_prefix,preparePreagregations } from '../prefix';
 
-cube(`A35`, {
+cube(`A35_Installed_Patches`, {
   sql: `
   WITH recursive Date_Ranges AS (
     select
@@ -56,8 +56,8 @@ cube(`A35`, {
   )}
     and ad.dataid = 35
 `,
-  title: `Installed Patches v2`,
-  description: `Installed Patches v2`,
+  title: `Installed Patches`,
+  description: `Installed Patches`,
 
   joins: {
     GA: {

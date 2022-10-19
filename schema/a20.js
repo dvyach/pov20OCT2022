@@ -1,6 +1,6 @@
 import { db_prefix,preparePreagregations } from '../prefix';
 
-cube(`A20`, {
+cube(`A20_Processor_Details`, {
   sql: `
   WITH recursive Date_Ranges AS (
     select

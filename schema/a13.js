@@ -1,6 +1,6 @@
 import { db_prefix, preparePreagregations } from '../prefix';
 
-cube(`A13`, {
+cube(`A13_Memory_Array_Mapped_Address`, {
   sql: `
   WITH recursive Date_Ranges AS (
     select
@@ -58,8 +58,8 @@ cube(`A13`, {
   )}
     and ad.dataid = 13
 `,
-  title: `Memory Array Mapped Address v2`,
-  description: `Memory Array Mapped Address v2`,
+  title: `Memory Array Mapped Address`,
+  description: `Memory Array Mapped Address`,
 
   joins: {
     GA: {

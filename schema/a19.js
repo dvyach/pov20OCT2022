@@ -1,6 +1,6 @@
 import { db_prefix } from '../prefix';
 
-cube(`A19`, {
+cube(`A19_Portable_Battery_Details`, {
   sql: `
   WITH recursive Date_Ranges AS (
     select
@@ -67,8 +67,8 @@ cube(`A19`, {
   )}
     and ad.dataid = 19
 `,
-  title: `Portable Battery v2`,
-  description: `Portable Battery v2`,
+  title: `Portable Battery`,
+  description: `Portable Battery`,
 
   joins: {
     GA: {

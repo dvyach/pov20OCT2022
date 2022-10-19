@@ -1,6 +1,6 @@
 import { db_prefix } from '../prefix';
 
-cube(`A37`, {
+cube(`A37_System_Disk_Details`, {
   sql: `
   WITH recursive Date_Ranges AS ( 
     select 

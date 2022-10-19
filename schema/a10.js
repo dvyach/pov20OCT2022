@@ -1,5 +1,5 @@
 import { db_prefix,preparePreagregations } from '../prefix';
-cube(`A10`, {
+cube(`A10_System_Information`, {
   sql: `
   WITH recursive Date_Ranges AS (
     select
@@ -64,8 +64,8 @@ cube(`A10`, {
   )}
     and ad.dataid = 10
 `,
-  title: `System Information v2`,
-  description: `System Information v2 `,
+  title: `System Information`,
+  description: `System Information`,
   joins: {
     GA: {
       relationship: 'belongsTo',
