@@ -104,11 +104,11 @@ cube(`AIMX`, {
       type: `string` //   title: `Dart`,
 
     },
-    // machine: {
-    //   sql: `machine`,
-    //   type: `string` //   title: `Machine`,
+    machine: {
+      sql: `machine`,
+      type: `string` //   title: `Machine`,
 
-    // },
+    },
     MetricName: {
       type: `string`,
       sql: `metricname` //    title: `Metric Name`,
