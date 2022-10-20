@@ -61,7 +61,7 @@ cube(`A7_DNS_Server_Details`, {
   joins: {
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.device`,
+      sql: `${GA.host} = ${CUBE}.device`,
     },
   },
   measures: {

@@ -17,15 +17,15 @@ cube(`BootTimeExperience`, {
   joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA}.site = ${CUBE}.customer and ${CA}.host = ${CUBE}.machine`,
+      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`,
     },
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.machine`,
+      sql: `${GA.host} = ${CUBE}.machine`,
     },
     combinedassets: {
       relationship: 'belongsTo',
-      sql: `${combinedassets}.site = ${CUBE}.customer and ${combinedassets}.host = ${CUBE}.machine`,
+      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`,
     },
   },
   measures: {

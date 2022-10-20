@@ -60,7 +60,7 @@ cube(`A18_Physical_Memory_Array`, {
   joins: {
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.device`,
+      sql: `${GA.host} = ${CUBE}.device`,
     },
   },
   measures: {

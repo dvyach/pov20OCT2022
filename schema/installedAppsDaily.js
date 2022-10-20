@@ -1,21 +1,30 @@
 import { db_prefix, preparePreagregations } from '../prefix';
- cube('InstalledAppsDaily', {
- sql: `select id, machineid, from_unixtime(slatest,'%Y-%m-%d') date, clatest, host, site, dataid,
+cube('InstalledAppsDaily', {
+  sql: `select id, machineid, from_unixtime(slatest,'%Y-%m-%d') date, clatest, host, site, dataid,
       cast((value->>'$.version') AS CHAR) as 'version',
       cast((value->>'$.installationdate' ) AS CHAR) as 'installationdate',
       cast((value->>'$.estimatedsizeinkb' ) AS CHAR) as 'estimatedsizeinkb',
       cast((value->>'$.installedsoftwarenames' ) AS CHAR) as 'installedsoftwarenames'
       FROM ${db_prefix()}asset.AssetDataDaily where dataid = '36'  group by installedsoftwarenames , version, host, installationdate `,
-       joins: {
+ 
+   joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA}.site = ${CUBE}.site and ${CA}.host = ${CUBE}.host`
+      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`,
     },
+
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.host`,
+      sql: `${GA.host} = ${CUBE}.machine`,
     },
-  },
+
+    combinedassets: {
+      relationship: 'belongsTo',
+      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`,
+    },
+
+    },
+    
   measures: {
     count: {
       type: `count`,
@@ -60,7 +69,7 @@ import { db_prefix, preparePreagregations } from '../prefix';
       type: `time`,
       title: `Latest Date`,
     },
-      NameVersion: {
+    NameVersion: {
       sql: `NameVersion`,
       type: `string`,
     },
@@ -91,7 +100,7 @@ import { db_prefix, preparePreagregations } from '../prefix';
       partitionGranularity: `month`,
       timeDimension: LDate,
       measures: [count],
-      dimensions: [site,host,version,installationdate, estimatedsizeinkb,installedsoftwarenames],
+      dimensions: [site, host, version, installationdate, estimatedsizeinkb, installedsoftwarenames],
       scheduledRefresh: true,
       type: `rollup`,
       refreshKey: {

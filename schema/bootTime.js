@@ -20,26 +20,23 @@ cube(`BootTime`, {
    title: `Boot Time Details`,
   description: `Boot Time Details`,
 
-  joins: {
+   joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA}.site = ${CUBE}.customer and ${CA}.host = ${CUBE}.machine`,
-    },
-
-    AT: {
-      relationship: 'belongsTo',
-      sql: `${AT}.MetricName = 'BootTime'`,
+      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`,
     },
 
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.machine`,
+      sql: `${GA.host} = ${CUBE}.machine`,
     },
+
     combinedassets: {
       relationship: 'belongsTo',
-      sql: `${combinedassets}.site = ${CUBE}.customer and ${combinedassets}.host = ${CUBE}.machine`,
+      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`,
     },
-  },
+
+    },
 
   measures: {
     count: {
@@ -114,8 +111,8 @@ cube(`BootTime`, {
 
     group: {
       case: {
-        when: [{ sql: `${GA}.name is null`, label: `Un-Grouped` }],
-        else: { label: { sql: `${GA}.name` } },
+        when: [{ sql: `${GA.name} is null`, label: `Un-Grouped` }],
+        else: { label: { sql: `${GA.name}` } },
       },
       type: `string`,
       title: `Group`,
@@ -138,42 +135,49 @@ cube(`BootTime`, {
       sql: `dtime`,
       title: `Time`,
     },
+    
     // from dataid=5
     manufacturer: {
-      sql: ` ${combinedassets}.manufacturer`,
+      sql: ` ${combinedassets.manufacturer}`,
       type: `string`,
       title: `manufacturer`,
     },
+
     chassistype: {
-      sql: ` ${combinedassets}.chassistype`,
+      sql: ` ${combinedassets.chassistype}`,
       type: `string`,
       title: `chassistype`,
     },
+
     // from dataid=20
     registeredprocessor: {
-      sql: ` ${combinedassets}.registeredprocessor`,
+      sql: ` ${combinedassets.registeredprocessor}`,
       type: `string`,
       title: `registeredprocessor`,
     },
+
     processorfamily: {
-      sql: ` ${combinedassets}.processorfamily`,
+      sql: ` ${combinedassets.processorfamily}`,
       type: `string`,
       title: `processorfamily`,
     },
+
     processormanufacturer: {
-      sql: ` ${combinedassets}.processormanufacturer`,
+      sql: ` ${combinedassets.processormanufacturer}`,
       type: `string`,
       title: `processormanufacturer`,
     },
+
     // from dataid=16
     operatingsystem: {
-      sql: ` ${combinedassets}.operatingsystem`,
+      sql: ` ${combinedassets.operatingsystem}`,
       type: `string`,
       title: `operatingsystem`,
     },
+    
     // from dataid=39
     memorysize: {
-      sql: ` ${combinedassets}.memorysize`,
+      sql: ` ${combinedassets.memorysize}`,
       type: `string`,
       title: `memorysize`,
     },
@@ -188,13 +192,13 @@ cube(`BootTime`, {
       dimensions: [site, 
       group,  
       clientver, 
-      boottime.manufacturer,
-      boottime.chassistype,
-      boottime.registeredprocessor,
-      boottime.processorfamily,
-      boottime.processormanufacturer,
-      boottime.memorysize,
-      boottime.operatingsystem
+      BootTime.manufacturer,
+      BootTime.chassistype,
+      BootTime.registeredprocessor,
+      BootTime.processorfamily,
+      BootTime.processormanufacturer,
+      BootTime.memorysize,
+      BootTime.operatingsystem
       ],
       timeDimension: ETime,
       granularity: `day`,
@@ -229,13 +233,13 @@ cube(`BootTime`, {
       dimensions: [site, 
       group,  
       clientver, 
-      boottime.manufacturer,
-      boottime.chassistype,
-      boottime.registeredprocessor,
-      boottime.processorfamily,
-      boottime.processormanufacturer,
-      boottime.memorysize,
-      boottime.operatingsystem
+      BootTime.manufacturer,
+      BootTime.chassistype,
+      BootTime.registeredprocessor,
+      BootTime.processorfamily,
+      BootTime.processormanufacturer,
+      BootTime.memorysize,
+      BootTime.operatingsystem
       ],
       timeDimension: ETime,
       granularity: `day`,

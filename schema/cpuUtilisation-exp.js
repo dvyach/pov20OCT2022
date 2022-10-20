@@ -18,23 +18,26 @@ cube(`CPUMemoryUtilizationExperience`, {
   joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA}.site = ${CUBE}.customer and ${CA}.host = ${CUBE}.machine`
+      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`,
     },
+
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.machine`
+      sql: `${GA.host} = ${CUBE}.machine`,
     },
+
     combinedassets: {
       relationship: 'belongsTo',
-      sql: `${combinedassets}.site = ${CUBE}.customer and ${combinedassets}.host = ${CUBE}.machine`,
+      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`,
     },
+
   },
   measures: {
     count: {
       type: `number`,
       sql: `idx`,
     },
-    metriccount:{
+    metriccount: {
       type: `count`,
       sql: `metric`,
     },
@@ -46,13 +49,13 @@ cube(`CPUMemoryUtilizationExperience`, {
       primaryKey: true,
     },
 
-    metricname:{
+    metricname: {
       sql: `metricname`,
       type: `string`,
       title: `metricname`
     },
 
-    other:{
+    other: {
       sql: `other`,
       type: `string`,
       title: `other`,
@@ -63,64 +66,63 @@ cube(`CPUMemoryUtilizationExperience`, {
       type: `time`,
       title: `Time`,
     },
-
     // from dataid=5
     manufacturer: {
-      sql: ` ${combinedassets}.manufacturer`,
+      sql: ` ${combinedassets.manufacturer}`,
       type: `string`,
       title: `manufacturer`,
     },
 
     chassistype: {
-      sql: ` ${combinedassets}.chassistype`,
+      sql: ` ${combinedassets.chassistype}`,
       type: `string`,
       title: `chassistype`,
     },
 
     // from dataid=20
     registeredprocessor: {
-      sql: ` ${combinedassets}.registeredprocessor`,
+      sql: ` ${combinedassets.registeredprocessor}`,
       type: `string`,
       title: `registeredprocessor`,
     },
 
     processorfamily: {
-      sql: ` ${combinedassets}.processorfamily`,
+      sql: ` ${combinedassets.processorfamily}`,
       type: `string`,
       title: `processorfamily`,
     },
 
     processormanufacturer: {
-      sql: ` ${combinedassets}.processormanufacturer`,
+      sql: ` ${combinedassets.processormanufacturer}`,
       type: `string`,
       title: `processormanufacturer`,
     },
 
     // from dataid=16
     operatingsystem: {
-      sql: ` ${combinedassets}.operatingsystem`,
+      sql: ` ${combinedassets.operatingsystem}`,
       type: `string`,
       title: `operatingsystem`,
     },
     
     // from dataid=39
     memorysize: {
-      sql: ` ${combinedassets}.memorysize`,
+      sql: ` ${combinedassets.memorysize}`,
       type: `string`,
       title: `memorysize`,
     },
   },
   preAggregations: {
     main: {
-      measures: [count,metriccount],
-      dimensions: [dtime,metricname,other,
-      DCM.manufacturer,
-      DCM.chassistype,
-      DCM.registeredprocessor,
-      DCM.processorfamily,
-      DCM.processormanufacturer,
-      DCM.memorysize,
-      DCM.operatingsystem],
+      measures: [count, metriccount],
+      dimensions: [dtime, metricname, other,
+        CPUMemoryUtilizationExperience.manufacturer,
+        CPUMemoryUtilizationExperience.chassistype,
+        CPUMemoryUtilizationExperience.registeredprocessor,
+        CPUMemoryUtilizationExperience.processorfamily,
+        CPUMemoryUtilizationExperience.processormanufacturer,
+        CPUMemoryUtilizationExperience.memorysize,
+        CPUMemoryUtilizationExperience.operatingsystem],
       granularity: `day`,
       partitionGranularity: `month`,
       timeDimension: dtime,

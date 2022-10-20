@@ -73,7 +73,7 @@ cube(`A19_Portable_Battery_Details`, {
   joins: {
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.device`,
+      sql: `${GA.host} = ${CUBE}.device`,
     },
   },
   measures: {

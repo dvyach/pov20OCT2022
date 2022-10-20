@@ -70,11 +70,11 @@ cube(`A5_Chassis_Details`, {
   joins: {
     MAC: {
       relationship: 'belongsTo',
-      sql: `${MAC}.idm = ${CUBE}.machineid`,
+      sql: `${MAC.idm} = ${CUBE}.machineid`,
     },
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.device`,
+      sql: `${GA.host} = ${CUBE}.device`,
     },
   },
 

@@ -62,7 +62,7 @@ cube(`A35_Installed_Patches`, {
   joins: {
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.device`,
+      sql: `${GA.host} = ${CUBE}.device`,
     },
   },
   measures: {

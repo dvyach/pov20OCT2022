@@ -60,7 +60,7 @@ cube(`A8_User_Machine_Domain_Details`, {
   joins: {
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.device`,
+      sql: `${GA.host} = ${CUBE}.device`,
     },
   },
   measures: {

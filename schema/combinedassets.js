@@ -16,11 +16,11 @@ cube(`combinedassets`, {
   joins: {
     CA: {
       relationship: `belongsTo`,
-      sql: `${CUBE}.customer = ${CA}.site and ${CUBE}.machine = ${CA}.host`,
+      sql: `${CUBE}.customer = ${CA.site} and ${CUBE}.machine = ${CA.host}`,
     },
     GA: {
       relationship: `belongsTo`,
-      sql: `${CUBE}.machine = ${GA}.host`,
+      sql: `${CUBE}.machine = ${GA.host}`,
     },
   },
   measures: {

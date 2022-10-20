@@ -1,57 +1,51 @@
 import { db_prefix } from '../prefix';
 
-// Are we use it?
-cube(`survey`, {
-  sql: `SELECT idx,servertime as stime,
-   from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
-  customer,machine,username,
-  cast((text1->>'$.adesc') AS CHAR) AS 'adesc',
-  cast((text1->>'$.alabel') as CHAR) AS 'alabel',
-  cast((text1->>'$.qlabel') as CHAR) AS 'qlabel',
-  cast((text1->>'$.qdesc') as CHAR) AS 'qdesc',
-  cast((text1->>'$.score') as UNSIGNED INTEGER) AS 'score',
-  clientversion as clientversion
-  from  ${db_prefix()}event.Events
-  where  scrip = 241
-  and ${FILTER_PARAMS.survey.ETime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
-   `,
-  title: `survey`,
-  description: `Experience Survey`,
+cube(`SurveyExperience`, {
+  sql: `SELECT idx,scrip,customer,machine,username, servertime,
+        from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
+         cast((text1->>'$.score') AS SIGNED) AS 'metric',
+         LAG(cast((text1->>'$.score') AS SIGNED),1,cast((text1->>'$.score') AS SIGNED))
+         over (PARTITION by machine order by idx) as 'last',
+         SUBSTRING_INDEX(text1->>'$.qdesc','#',1) AS 'other',
+         cast((text1->>'$.adesc') AS CHAR) AS 'answers',
+         cast((text1->>'$.alabel') AS CHAR) AS 'alabel',
+         cast((text1->>'$.qlabel') AS CHAR) AS 'qlabel',
+         'Survey' as 'metricname'
+        from ${db_prefix()}event.Events
+        where scrip = 241
+    and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+    and ${FILTER_PARAMS.LTX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+  `,
+  title: `Survey Exp`,
+  description: `Survey Exp`,
 
-   joins: {
+  joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`,
+      sql: `${CA}.site = ${CUBE}.customer and ${CA}.host = ${CUBE}.machine`,
     },
-
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA.host} = ${CUBE}.machine`,
+      sql: `${GA}.host = ${CUBE}.machine`,
     },
-
     combinedassets: {
       relationship: 'belongsTo',
-      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`,
-    },
-
-    },
-
-  measures: {
-    response: {
-      type: `count`,
-      sql: `idx`,
-      drillMembers: [machine, adesc, alabel, ETime],
-      title: `Response`,
-    },
-    score: {
-      type: `number`,
-      sql: `score`,
-      drillMembers: [machine, adesc, alabel, ETime],
-      title: `Score`,
+      sql: `${combinedassets}.site = ${CUBE}.customer and ${combinedassets}.host = ${CUBE}.machine`,
     },
   },
 
-  dimensions: {
+  measures: {
+    count:{
+      sql: `idx`,
+      type: `count`,
+    },
+    metriccount:{
+      sql: `metric`,
+      type: `count`,
+    },
+  },
+
+   dimensions: {
     idx: {
       sql: `idx`,
       type: `number`,
@@ -62,23 +56,6 @@ cube(`survey`, {
       sql: `customer`,
       type: `string`,
       title: `Site`,
-    },
-
-   group: {
-      case: {
-        when: [
-          {
-            sql: `${GA.name} is null`,
-            label: `Un-Grouped`,
-          },
-        ],
-        else: {
-          label: {
-            sql: `${GA.name}`,
-          },
-        },
-      },
-      type: `string`,
     },
 
     machine: {
@@ -172,29 +149,27 @@ cube(`survey`, {
       title: `memorysize`,
     },
   },
-
-  preAggregations: {
-    MDCount: {
+   preAggregations: {
+    surveyexp: {
       type: `rollup`,
-      // useOriginalSqlPreAggregations: true,
-      measures: [response, score],
-      dimensions: [site, group, machine, os, adesc, alabel, qlabel, qdesc, manufacturer,
-      chassistype,registeredprocessor,processorfamily,processormanufacturer,operatingsystem,memorysize  ],
+      measures: [count, metriccount],
+      dimensions: [site, machine, adesc, alabel, qlabel, qdesc, manufacturer,
+      chassistype,registeredprocessor,processorfamily,processormanufacturer,operatingsystem,memorysize],
       timeDimension: ETime,
-      granularity: `hour`,
-      partitionGranularity: `day`,
+      granularity: `day`,
+      partitionGranularity: `month`,
       scheduledRefresh: true,
       refreshKey: {
-        every: `3600 seconds`,
+        every: `1800 seconds`,
         incremental: true,
-        // updateWindow: `6 hour`,
+        updateWindow: `6 hour`
       },
       buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
       },
       buildRangeEnd: {
-        sql: `SELECT NOW()`,
-      },
+        sql: `SELECT NOW()`
+      }
     },
   },
 });

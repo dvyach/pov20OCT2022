@@ -17,21 +17,23 @@ cube(`AIMX`, {
   select * from ${ProcessCPUUtilzationExperience.sql()} as ProcessCPUUtilzationExperience
   UNION
   select * from ${ProcessMemoryUtilzationExperience.sql()} as ProcessMemoryUtilzationExperience
+  UNION
+  select * from ${SurveyExperience.sql()} as SurveyExperience
 `,
   title: `AIM-X`,
   description: `AIM-X Experience`,
   joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA}.site = {CUBE}.customer and ${CA}.host = ${CUBE}.machine`
+      sql: `${CA.site} = {CUBE}.customer and ${CA.host} = ${CUBE}.machine`
     },
     scores: {
       relationship: 'belongsTo',
-      sql: `${scores}.MetricName = ${CUBE}.metricname and ${scores}.SpecificInfo = ${CUBE}.other and ${scores}.varfrom <= ${CUBE}.metric and ${scores}.varto > ${CUBE}.metric`
+      sql: `${scores.MetricName} = ${CUBE}.metricname and ${scores.SpecificInfo} = ${CUBE}.other and ${scores.varfrom} <= ${CUBE}.metric and ${scores.varto} > ${CUBE}.metric`
     },
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.machine`
+      sql: `${GA.host} = ${CUBE}.machine`
     }
   },
   measures: {
@@ -43,21 +45,21 @@ cube(`AIMX`, {
       type: `countDistinct`,
       sql: `machine`,
       filters: [{
-        sql: `${scores}.sc >= 7.5`
+        sql: `${scores.sc} >= 7.5`
       }]
     },
     machcountbd: {
       type: `countDistinct`,
       sql: `machine`,
       filters: [{
-        sql: `${scores}.sc <= 3.5`
+        sql: `${scores.sc} <= 3.5`
       }]
     },
     machcountavg: {
       type: `countDistinct`,
       sql: `machine`,
       filters: [{
-        sql: `${scores}.sc > 3.5 and ${scores}.sc < 7.5`
+        sql: `${scores.sc} > 3.5 and ${scores.sc} < 7.5`
       }]
     },
     machcount: {
@@ -71,19 +73,19 @@ cube(`AIMX`, {
     },
     ActualScore: {
       type: `avg`,
-      sql: `${scores}.sc`
+      sql: `${scores.sc}`
     },
     MetricWt: {
       type: `avg`,
-      sql: `${scores}.sc * ${scores}.mw`
+      sql: `${scores.sc} * ${scores.mw}`
     },
     SubCatWt: {
       type: `avg`,
-      sql: `${scores}.sc * ${scores}.scw`
+      sql: `${scores.sc} * ${scores.scw}`
     },
     CatWt: {
       type: `avg`,
-      sql: `${scores}.sc * ${scores}.cw`
+      sql: `${scores.sc} * ${scores.cw}`
     }
   },
   dimensions: {
@@ -116,12 +118,12 @@ cube(`AIMX`, {
       type: `string`,
       case: {
         when: [{
-          sql: `${scores}.MetricDesc is null`,
+          sql: `${scores.MetricDesc} is null`,
           label: 'Others'
         }],
         else: {
           label: {
-            sql: `${scores}.MetricDesc`
+            sql: `${scores.MetricDesc}`
           }
         }
       } //   title: `Component`,
@@ -136,12 +138,12 @@ cube(`AIMX`, {
       type: `string`,
       case: {
         when: [{
-          sql: `${scores}.Category is null`,
+          sql: `${scores.Category} is null`,
           label: 'Others'
         }],
         else: {
           label: {
-            sql: `${scores}.Category`
+            sql: `${scores.Category}`
           }
         }
       } //    title: `Category`,
@@ -151,12 +153,12 @@ cube(`AIMX`, {
       type: `string`,
       case: {
         when: [{
-          sql: `${scores}.subcategory is null`,
+          sql: `${scores.subcategory} is null`,
           label: 'Others'
         }],
         else: {
           label: {
-            sql: `${scores}.subcategory`
+            sql: `${scores.subcategory}`
           }
         }
       },
@@ -165,12 +167,12 @@ cube(`AIMX`, {
     group: {
       case: {
         when: [{
-          sql: `${GA}.name is null`,
+          sql: `${GA.name} is null`,
           label: `Un-Grouped`
         }],
         else: {
           label: {
-            sql: `${GA}.name`
+            sql: `${GA.name}`
           }
         }
       },

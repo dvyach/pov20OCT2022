@@ -16,16 +16,19 @@ cube(`LogonTimeExpereince`, {
   joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA}.site = ${CUBE}.customer and ${CA}.host = ${CUBE}.machine`,
+      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`,
     },
+
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.machine`,
+      sql: `${GA.host} = ${CUBE}.machine`,
     },
+
     combinedassets: {
       relationship: 'belongsTo',
-      sql: `${combinedassets}.site = ${CUBE}.customer and ${combinedassets}.host = ${CUBE}.machine`,
+      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`,
     },
+
   },
   measures: {
     // use LogonTime is not null when viz is created
@@ -33,7 +36,7 @@ cube(`LogonTimeExpereince`, {
       type: `count`
     },
 
-    metriccount:{
+    metriccount: {
       sql: `metric`,
       type: `count`,
     },
@@ -50,13 +53,13 @@ cube(`LogonTimeExpereince`, {
       title: `Time`,
     },
 
-    metricname:{
+    metricname: {
       sql: `metricname`,
       type: `string`,
       title: `metricname`
     },
 
-    other:{
+    other: {
       sql: `other`,
       type: `string`,
       title: `other`,
@@ -64,46 +67,46 @@ cube(`LogonTimeExpereince`, {
 
     // from dataid=5
     manufacturer: {
-      sql: ` ${combinedassets}.manufacturer`,
+      sql: ` ${combinedassets.manufacturer}`,
       type: `string`,
       title: `manufacturer`,
     },
 
     chassistype: {
-      sql: ` ${combinedassets}.chassistype`,
+      sql: ` ${combinedassets.chassistype}`,
       type: `string`,
       title: `chassistype`,
     },
 
     // from dataid=20
     registeredprocessor: {
-      sql: ` ${combinedassets}.registeredprocessor`,
+      sql: ` ${combinedassets.registeredprocessor}`,
       type: `string`,
       title: `registeredprocessor`,
     },
 
     processorfamily: {
-      sql: ` ${combinedassets}.processorfamily`,
+      sql: ` ${combinedassets.processorfamily}`,
       type: `string`,
       title: `processorfamily`,
     },
 
     processormanufacturer: {
-      sql: ` ${combinedassets}.processormanufacturer`,
+      sql: ` ${combinedassets.processormanufacturer}`,
       type: `string`,
       title: `processormanufacturer`,
     },
 
     // from dataid=16
     operatingsystem: {
-      sql: ` ${combinedassets}.operatingsystem`,
+      sql: ` ${combinedassets.operatingsystem}`,
       type: `string`,
       title: `operatingsystem`,
     },
     
     // from dataid=39
     memorysize: {
-      sql: ` ${combinedassets}.memorysize`,
+      sql: ` ${combinedassets.memorysize}`,
       type: `string`,
       title: `memorysize`,
     },
@@ -112,8 +115,8 @@ cube(`LogonTimeExpereince`, {
   preAggregations: {
     logindurationexp: {
       type: `rollup`,
-      measures: [count,metriccount],
-      dimensions: [dtime,metricname,other,
+      measures: [count, metriccount],
+      dimensions: [dtime, metricname, other,
         manufacturer,
         chassistype,
         registeredprocessor,
@@ -135,6 +138,6 @@ cube(`LogonTimeExpereince`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`
       }
-    },  
+    },
   },
 });

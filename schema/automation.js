@@ -18,20 +18,23 @@ cube(`Automation`, {
   //  and ${USER_CONTEXT.machine.filter('machine')}
   title: `Automation Analytics`,
   description: `Automation Analytics`,
-  joins: {
+    joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA}.site = ${CUBE}.customer and ${CA}.host = ${CUBE}.machine`
+      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`,
     },
+
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.machine`
+      sql: `${GA.host} = ${CUBE}.machine`,
     },
+
     combinedassets: {
       relationship: 'belongsTo',
-      sql: `${combinedassets}.site = ${CUBE}.customer and ${combinedassets}.host = ${CUBE}.machine`,
+      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`,
     },
-  },
+
+    },
   measures: {
     AutomationCount: {
       type: `count`,
@@ -102,31 +105,33 @@ cube(`Automation`, {
       type: `string` //title: `Device`
 
     },
-    Group: {
+    group: {
       case: {
-        when: [{
-          sql: `${GA}.name is null`,
-          label: `Un-Grouped`
-        }],
+        when: [
+          {
+            sql: `${GA.name} is null`,
+            label: `Un-Grouped`,
+          },
+        ],
         else: {
           label: {
-            sql: `${GA}.name`
-          }
-        }
+            sql: `${GA.name}`,
+          },
+        },
       },
-      type: `string` // title: `Group`
-
+      type: `string`,
     },
+
     OperatingSystem: {
       //   sql: `${CA}.os`,
       case: {
         when: [{
-          sql: `${CA}.os is null`,
+          sql: `${CA.os} is null`,
           label: `Windows10EnterpriseEdition64-bit`
         }],
         else: {
           label: {
-            sql: `${CA}.os`
+            sql: `${CA.os}`
           }
         }
       },
@@ -171,46 +176,46 @@ cube(`Automation`, {
 
     // from dataid=5
     manufacturer: {
-      sql: ` ${combinedassets}.manufacturer`,
+      sql: ` ${combinedassets.manufacturer}`,
       type: `string`,
       title: `manufacturer`,
     },
 
     chassistype: {
-      sql: ` ${combinedassets}.chassistype`,
+      sql: ` ${combinedassets.chassistype}`,
       type: `string`,
       title: `chassistype`,
     },
 
     // from dataid=20
     registeredprocessor: {
-      sql: ` ${combinedassets}.registeredprocessor`,
+      sql: ` ${combinedassets.registeredprocessor}`,
       type: `string`,
       title: `registeredprocessor`,
     },
 
     processorfamily: {
-      sql: ` ${combinedassets}.processorfamily`,
+      sql: ` ${combinedassets.processorfamily}`,
       type: `string`,
       title: `processorfamily`,
     },
 
     processormanufacturer: {
-      sql: ` ${combinedassets}.processormanufacturer`,
+      sql: ` ${combinedassets.processormanufacturer}`,
       type: `string`,
       title: `processormanufacturer`,
     },
 
     // from dataid=16
     operatingsystem: {
-      sql: ` ${combinedassets}.operatingsystem`,
+      sql: ` ${combinedassets.operatingsystem}`,
       type: `string`,
       title: `operatingsystem`,
     },
-
+    
     // from dataid=39
     memorysize: {
-      sql: ` ${combinedassets}.memorysize`,
+      sql: ` ${combinedassets.memorysize}`,
       type: `string`,
       title: `memorysize`,
     },
@@ -219,11 +224,11 @@ cube(`Automation`, {
   preAggregations: {
     autocountday: {
       type: `rollup`,
-      measures: [automation.AutomationCount, automation.SuccessCount, automation.TerminationCount],
+      measures: [Automation.AutomationCount, Automation.SuccessCount, Automation.TerminationCount],
       dimensions: [
         TypeOfRun, 
         Site, 
-        Group, 
+        group, 
         OperatingSystem, 
         AutomationName, 
         Status, 
@@ -234,7 +239,7 @@ cube(`Automation`, {
         processorfamily,
         processormanufacturer,
         memorysize],
-      timeDimension: automation.autoTime,
+      timeDimension:Automation.autoTime,
       granularity: `day`,
       partitionGranularity: `month`,
       scheduledRefresh: true,
@@ -251,9 +256,9 @@ cube(`Automation`, {
       }
     },
     distinct: {
-      measures: [automation.DeviceCount],
-      dimensions: [automation.AutomationName],
-      timeDimension: automation.autoTime,
+      measures: [Automation.DeviceCount],
+      dimensions: [Automation.AutomationName],
+      timeDimension: Automation.autoTime,
       granularity: `day`,
       partitionGranularity: `month`,
       scheduledRefresh: true,
@@ -270,9 +275,9 @@ cube(`Automation`, {
       }
     },
     execduration: {
-      measures: [automation.ExecutionDuration, automation.ExecutionTime, automation.TerminatedAfter],
-      dimensions: [automation.AutomationName, automation.TypeOfRun],
-      timeDimension: automation.autoTime,
+      measures: [Automation.ExecutionDuration, Automation.ExecutionTime, Automation.TerminatedAfter],
+      dimensions: [Automation.AutomationName, Automation.TypeOfRun],
+      timeDimension: Automation.autoTime,
       granularity: `day`,
       partitionGranularity: `month`,
       scheduledRefresh: true,

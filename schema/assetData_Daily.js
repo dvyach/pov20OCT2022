@@ -15,11 +15,11 @@ cube(`AssetDataDaily`, {
   joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA}.site = ${CUBE}.site and ${CA}.host = ${CUBE}.host`
+      sql: `${CA.site} = ${CUBE}.site and ${CA.host} = ${CUBE}.host`
     },
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.host`,
+      sql: `${GA.host} = ${CUBE}.host`,
     },
   },
   measures: {

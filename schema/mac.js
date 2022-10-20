@@ -9,12 +9,9 @@ cube(`MAC`, {
   joins: { 
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.machine`
+      sql: `${GA.host} = ${CUBE}.machine`
     },
-    combinedassets: {
-      relationship: 'belongsTo',
-      sql: `${combinedassets}.site = ${CUBE}.customer and ${combinedassets}.host = ${CUBE}.machine`,
-    },
+
   },
   measures: {
   },
@@ -54,51 +51,6 @@ cube(`MAC`, {
       type: `string`,
     },
 
-    // from dataid=5
-    manufacturer: {
-      sql: ` ${combinedassets}.manufacturer`,
-      type: `string`,
-      title: `manufacturer`,
-    },
-
-    chassistype: {
-      sql: ` ${combinedassets}.chassistype`,
-      type: `string`,
-      title: `chassistype`,
-    },
-
-    // from dataid=20
-    registeredprocessor: {
-      sql: ` ${combinedassets}.registeredprocessor`,
-      type: `string`,
-      title: `registeredprocessor`,
-    },
-
-    processorfamily: {
-      sql: ` ${combinedassets}.processorfamily`,
-      type: `string`,
-      title: `processorfamily`,
-    },
-
-    processormanufacturer: {
-      sql: ` ${combinedassets}.processormanufacturer`,
-      type: `string`,
-      title: `processormanufacturer`,
-    },
-
-    // from dataid=16
-    operatingsystem: {
-      sql: ` ${combinedassets}.operatingsystem`,
-      type: `string`,
-      title: `operatingsystem`,
-    },
-    
-    // from dataid=39
-    memorysize: {
-      sql: ` ${combinedassets}.memorysize`,
-      type: `string`,
-      title: `memorysize`,
-    },
   },
   preAggregations: {
   },

@@ -21,22 +21,23 @@ JSON_TABLE(Scores,
                  ) as scr`,
   title: `Experience Score`,
   description: `DEA Score`,
-  joins: {
+    joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA}.site = ${CUBE}.customer and ${CA}.host = ${CUBE}.machine`,
+      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`,
     },
 
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA}.host = ${CUBE}.machine`,
+      sql: `${GA.host} = ${CUBE}.machine`,
     },
 
     combinedassets: {
       relationship: 'belongsTo',
-      sql: `${combinedassets}.site = ${CUBE}.customer and ${combinedassets}.host = ${CUBE}.machine`,
+      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`,
     },
-  },
+
+    },
   measures: {
     varto: {
       type: `number`,
@@ -105,45 +106,6 @@ JSON_TABLE(Scores,
       sql: `SpecificInfo`,
       type: `string`,
       title: `Specific Info`,
-    },
-    // from dataid=5
-    manufacturer: {
-      sql: ` ${combinedassets}.manufacturer`,
-      type: `string`,
-      title: `manufacturer`,
-    },
-    chassistype: {
-      sql: ` ${combinedassets}.chassistype`,
-      type: `string`,
-      title: `chassistype`,
-    },
-    // from dataid=20
-    registeredprocessor: {
-      sql: ` ${combinedassets}.registeredprocessor`,
-      type: `string`,
-      title: `registeredprocessor`,
-    },
-    processorfamily: {
-      sql: ` ${combinedassets}.processorfamily`,
-      type: `string`,
-      title: `processorfamily`,
-    },
-    processormanufacturer: {
-      sql: ` ${combinedassets}.processormanufacturer`,
-      type: `string`,
-      title: `processormanufacturer`,
-    },
-    // from dataid=16
-    operatingsystem: {
-      sql: ` ${combinedassets}.operatingsystem`,
-      type: `string`,
-      title: `operatingsystem`,
-    },
-    // from dataid=39
-    memorysize: {
-      sql: ` ${combinedassets}.memorysize`,
-      type: `string`,
-      title: `memorysize`,
     },
   },
 
