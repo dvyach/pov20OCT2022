@@ -1,10 +1,9 @@
 import { db_prefix } from '../prefix';
 
 cube(`SurveyExperience`, {
-  sql: `
-  SELECT idx,scrip,customer,machine,username, servertime, from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
+  sql: `SELECT idx,scrip,customer,machine,username, servertime, from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
          cast((text1->>'$.score') AS SIGNED) AS 'metric',
-         'Survey' as 'metricname'
+         'Survey' as 'metricname',
          '' AS 'other'
         from ${db_prefix()}event.Events
         where scrip = 241 
