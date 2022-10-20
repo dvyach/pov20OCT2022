@@ -1,5 +1,5 @@
 import { db_prefix, preparePreagregations } from '../prefix';
-cube(`automation`, {
+cube(`Automation`, {
   sql: `SELECT idx,servertime as stime,
   from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   customer,machine,username,ctime as ctime,
@@ -12,7 +12,7 @@ cube(`automation`, {
   clientversion as clientversion
   from  ${db_prefix()}event.Events
   where scrip = 286 
-  and ${FILTER_PARAMS.automation.autoTime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)
+  and ${FILTER_PARAMS.Automation.autoTime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)
     }
   `,
   //  and ${USER_CONTEXT.machine.filter('machine')}

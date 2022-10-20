@@ -1,6 +1,6 @@
 import { db_prefix, preparePreagregations } from '../prefix';
 
-cube(`autoheal`, {
+cube(`Autoheal`, {
   sql: `SELECT idx,servertime as stime, from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   customer,machine,username,
   cast((text1->>'$.resolution') AS CHAR) AS 'autoheal1',
@@ -9,7 +9,7 @@ cube(`autoheal`, {
   clientversion as clientversion
   from  ${db_prefix()}event.Events
   where  scrip = 69
-  and ${FILTER_PARAMS.autoheal.ETime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}`,
+  and ${FILTER_PARAMS.Autoheal.ETime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}`,
 
   title: `Autoheal Analytics `,
   description: `Autoheal Analytics `,

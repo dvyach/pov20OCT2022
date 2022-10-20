@@ -1,6 +1,6 @@
 import { db_prefix } from '../prefix';
 
-cube(`CM`, {
+cube(`CPUMemoryUtilization`, {
   sql: `select idx,scrip,customer,machine,username,servertime as stime,
   from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   cast((text1->>'$.sysCpuUsagePercentageAvg') AS SIGNED) AS 'avgCPUpctg',
@@ -10,7 +10,7 @@ cube(`CM`, {
   clientversion as clientversion
   from  ${db_prefix()}event.Events
   where scrip = 310 and text1 is not null
-  and ${FILTER_PARAMS.CM.ETime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+  and ${FILTER_PARAMS.CPUMemoryUtilization.ETime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
   title: `Memory Utilization`,
   description: `Memory Utilization`,

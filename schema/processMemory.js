@@ -2,7 +2,7 @@
 
 import { db_prefix, preparePreagregations } from '../prefix';
 
-cube(`PMEM`, {
+cube(`ProcessMemoryUtilzationExperience`, {
   sql: `select idx,
   scrip,
   customer,
@@ -16,7 +16,7 @@ cube(`PMEM`, {
   from ${db_prefix()}event.Events
   where scrip = 310 and SUBSTRING_INDEX(text3->>'$.processName','#',1) is not NULL
   and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
-  and ${FILTER_PARAMS.PMEM.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+  and ${FILTER_PARAMS.ProcessMemoryUtilzationExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
    `,
   title: `Process Memory Utilzation`,
   description: `Process Memory Utilzation`,

@@ -1,6 +1,6 @@
 import { db_prefix, preparePreagregations } from '../prefix';
 
-cube(`loggedinduration`, {
+cube(`LoggedinDuration`, {
   sql: `select idx,scrip,customer,machine,username,servertime as stime,
   from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   cast((string1->>'$.logonTime') AS CHAR) AS 'logonTime',
@@ -10,7 +10,7 @@ cube(`loggedinduration`, {
   clientversion as clientversion
   from  ${db_prefix()}event.Events
   where scrip = 174 and string2 is not null
-  and ${FILTER_PARAMS.loggedinduration.ETime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+  and ${FILTER_PARAMS.LoggedinDuration.ETime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `, // and ${USER_CONTEXT.machine.filter('machine')}
 
   title: `Logged in Duration`,

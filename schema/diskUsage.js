@@ -1,6 +1,6 @@
 import { db_prefix, preparePreagregations } from '../prefix';
 
-cube(`diskusage`, {
+cube(`DiskUsage`, {
   sql: `select idx,scrip,customer,machine,username,servertime as stime,
   from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   cast((text1->>'$.pctUsed') AS SIGNED) AS 'dusedper',
@@ -8,7 +8,7 @@ cube(`diskusage`, {
   clientversion as clientversion
   from  ${db_prefix()}event.Events
   where scrip = 95
-  and ${FILTER_PARAMS.diskusage.ETime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+  and ${FILTER_PARAMS.DiskUsage.ETime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `, // and ${USER_CONTEXT.machine.filter('machine')}
   title: `Disk Usage`,
   description: `Disk Usage %`,

@@ -2,7 +2,7 @@
 
 import { db_prefix, preparePreagregations } from '../prefix';
 
-cube(`DR`, {
+cube(`MemoryUtilizationExperience`, {
   sql: `select idx,scrip,customer,machine,username,servertime, from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   cast((text1->>'$.sysMemUsagePercentageAvg') AS SIGNED) AS 'metric',
   '' AS 'other',
@@ -10,7 +10,7 @@ cube(`DR`, {
   from ${db_prefix()}event.Events
   where scrip = 310 and text1->>'$.sysMemUsagePercentageAvg' is not null
   and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
-  and ${FILTER_PARAMS.DR.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+  and ${FILTER_PARAMS.MemoryUtilizationExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
   title: `Memory Utilization`,
   description: `Memory Utilization`,

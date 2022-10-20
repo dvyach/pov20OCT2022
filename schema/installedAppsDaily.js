@@ -1,5 +1,5 @@
 import { db_prefix, preparePreagregations } from '../prefix';
- cube('installedapps_daily', {
+ cube('InstalledAppsDaily', {
  sql: `select id, machineid, from_unixtime(slatest,'%Y-%m-%d') date, clatest, host, site, dataid,
       cast((value->>'$.version') AS CHAR) as 'version',
       cast((value->>'$.installationdate' ) AS CHAR) as 'installationdate',

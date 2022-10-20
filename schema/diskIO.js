@@ -1,6 +1,6 @@
 import { db_prefix, preparePreagregations } from '../prefix';
 
-cube(`diskio`, {
+cube(`DiskIOPerformance`, {
   sql: `SELECT idx,customer, machine, scrip, username,servertime as stime,
   from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   cast((text1->>'$.avgQueueLength') AS SIGNED) AS 'averagequeuelength',
@@ -12,7 +12,7 @@ cube(`diskio`, {
   clientversion as clientversion
   from  ${db_prefix()}event.Events
   where scrip = 97
-  and ${FILTER_PARAMS.diskio.ETime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+  and ${FILTER_PARAMS.DiskIOPerformance.ETime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
   title: `DiskIO Performance`,
   description: 'Cube records Drivename, average Q length, read/write per sec, % busy time, and realtime Disk io %',
