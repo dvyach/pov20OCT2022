@@ -1,18 +1,13 @@
 import { db_prefix } from '../prefix';
 
 cube(`SurveyExperience`, {
-  sql: `SELECT idx,scrip,customer,machine,username, servertime,
-        from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
+  sql: `
+  SELECT idx,scrip,customer,machine,username, servertime, from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
          cast((text1->>'$.score') AS SIGNED) AS 'metric',
-         LAG(cast((text1->>'$.score') AS SIGNED),1,cast((text1->>'$.score') AS SIGNED))
-         over (PARTITION by machine order by idx) as 'last',
-         SUBSTRING_INDEX(text1->>'$.qdesc','#',1) AS 'other',
-         cast((text1->>'$.adesc') AS CHAR) AS 'answers',
-         cast((text1->>'$.alabel') AS CHAR) AS 'alabel',
-         cast((text1->>'$.qlabel') AS CHAR) AS 'qlabel',
          'Survey' as 'metricname'
+         '' AS 'other'
         from ${db_prefix()}event.Events
-        where scrip = 241
+        where scrip = 241 
     and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
     and ${FILTER_PARAMS.SurveyExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
