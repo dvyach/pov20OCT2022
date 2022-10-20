@@ -178,7 +178,7 @@ cube(`survey`, {
       type: `rollup`,
       // useOriginalSqlPreAggregations: true,
       measures: [response, score],
-      dimensions: [site, group, machine, os, adesc, alabel, qlabel, qdesc, manufacturer,
+      dimensions: [site, group, machine, adesc, alabel, qlabel, qdesc, manufacturer,
       chassistype,registeredprocessor,processorfamily,processormanufacturer,operatingsystem,memorysize  ],
       timeDimension: ETime,
       granularity: `hour`,
