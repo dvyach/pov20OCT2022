@@ -185,7 +185,7 @@ cube(`DiskIOPerformance`, {
       DiskIOPerformance.processorfamily,
       DiskIOPerformance.processormanufacturer,
       DiskIOPerformance.memorysize,
-      diskio.operatingsystem],
+      DiskIOPerformance.operatingsystem],
       timeDimension: ETime,
       granularity: `day`,
       partitionGranularity: `month`,
