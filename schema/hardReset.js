@@ -1,7 +1,7 @@
 import { db_prefix, preparePreagregations } from '../prefix';
 
 cube(`HardReset`, {
-  sql: `select idx,scrip,customer,machine,username,servertime,text4
+  sql: `select idx,scrip,customer,machine,username,servertime,
   from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   from ${db_prefix()}event.Events
   where scrip = 31 and text4 is not NULL
