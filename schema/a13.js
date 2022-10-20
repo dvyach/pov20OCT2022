@@ -53,7 +53,7 @@ cube(`A13_Memory_Array_Mapped_Address`, {
     ) as aall
    left join asset.AssetData as ad on aall.mId = ad.machineid and aall.maxSlatest =  ad.slatest
   where
-  ${FILTER_PARAMS.A13.LatestDate.filter(
+  ${FILTER_PARAMS.A13_Memory_Array_Mapped_Address.LatestDate.filter(
     (from, to) => `aall.Date >= STR_TO_DATE(${from},'%Y-%m-%dT%H:%i:%s') AND aall.Date  <  STR_TO_DATE(${to},'%Y-%m-%dT%H:%i:%s')`,
   )}
     and ad.dataid = 13

@@ -50,7 +50,7 @@ cube(`A8_User_Machine_Domain_Details`, {
     ) as aall
    left join asset.AssetData as ad on aall.mId = ad.machineid and aall.maxSlatest =  ad.slatest
   where
-  ${FILTER_PARAMS.a7.LatestDate.filter(
+  ${FILTER_PARAMS.A8_User_Machine_Domain_Details.LatestDate.filter(
     (from, to) => `aall.Date >= STR_TO_DATE(${from},'%Y-%m-%dT%H:%i:%s') AND aall.Date  <  STR_TO_DATE(${to},'%Y-%m-%dT%H:%i:%s')`,
   )}
     and ad.dataid = 8

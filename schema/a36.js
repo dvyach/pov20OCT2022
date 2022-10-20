@@ -51,7 +51,7 @@ cube(`A36_Installed_apps`, {
     ) as aall 
    left join asset.AssetData as ad on aall.mId = ad.machineid and aall.maxSlatest =  ad.slatest
   where  
-  ${FILTER_PARAMS.A36.LatestDate.filter(
+  ${FILTER_PARAMS.A36_Installed_apps.LatestDate.filter(
     (from, to) => `aall.Date >= STR_TO_DATE(${from},'%Y-%m-%dT%H:%i:%s') AND aall.Date  <  STR_TO_DATE(${to},'%Y-%m-%dT%H:%i:%s')`,
   )}  
     and ad.dataid = 36  
