@@ -17,8 +17,7 @@ cube(`AIMX`, {
   select * from ${ProcessCPUUtilzationExperience.sql()} as ProcessCPUUtilzationExperience
   UNION
   select * from ${ProcessMemoryUtilzationExperience.sql()} as ProcessMemoryUtilzationExperience
-  UNION
-  select * from ${SurveyExperience.sql()} as SurveyExperience
+
 `,
   title: `AIM-X`,
   description: `AIM-X Experience`,
