@@ -17,7 +17,7 @@
     "@cubejs-backend/server": "^0.29.20",
     "dotenv-defaults": "^2.0.2",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.20"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",
