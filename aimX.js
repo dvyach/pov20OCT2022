@@ -2,13 +2,11 @@ import { db_prefix } from '../prefix';
 cube(`AIMX`, {
   sql: `select * from ${BootTimeExperience.sql()} as BootTimeExperience
   UNION
-  select * from ${DiskIOPerformanceExperience.sql()} as DiskIOPerformanceExperience
-  UNION
-  select * from ${DiskUsageExperience.sql()} as DiskUsageExperience
-  UNION
-  select * from ${LogonTimeExpereince.sql()} as LogonTimeExpereince
-  UNION
   select * from ${CPUMemoryUtilizationExperience.sql()} as CPUMemoryUtilizationExperience
+  UNION
+  select * from ${DiskUsageExperience.sql()} as DiskUsageExperience 
+  UNION
+  select * from ${LogonTimeExpereince.sql()} as LogonTimeExpereince  
   UNION
   select * from ${MemoryUtilizationExperience.sql()} as MemoryUtilizationExperience
   UNION
@@ -17,6 +15,8 @@ cube(`AIMX`, {
   select * from ${ProcessCPUUtilzationExperience.sql()} as ProcessCPUUtilzationExperience
   UNION
   select * from ${ProcessMemoryUtilzationExperience.sql()} as ProcessMemoryUtilzationExperience
+  UNION
+  select * from ${DiskIOExperience.sql()} as DiskIOExperience
 `,
   title: `AIM-X`,
   description: `AIM-X Experience`,
@@ -32,7 +32,11 @@ cube(`AIMX`, {
     GA: {
       relationship: 'belongsTo',
       sql: `${GA.host} = ${CUBE}.machine`
-    }
+    },
+    combinedassets: {
+      relationship: 'belongsTo',
+      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`,
+    },
   },
   measures: {
     count: {
@@ -297,7 +301,7 @@ cube(`AIMX`, {
         sql: `SELECT NOW()`
       }
     },
-      AIMXcatsubcat: {
+    AIMXcatsubcat: {
       measures: [AIMX.ActualScore],
       dimensions: [AIMX.Category, AIMX.subcategory],
       timeDimension: AIMX.dtime,
@@ -315,6 +319,6 @@ cube(`AIMX`, {
         sql: `SELECT NOW()`
       }
     },
-    
+
   }
 });
