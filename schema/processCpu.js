@@ -1,6 +1,6 @@
 import { db_prefix,preparePreagregations } from '../prefix';
 
-cube(`ProcessCPUUtilzExp`, {
+cube(`ProcessCPUUtilExp`, {
   sql: `select idx,scrip,customer,machine,username, servertime,from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   cast((text3->>'$.cpuAvgPercentage') AS SIGNED) AS 'metric',
   SUBSTRING_INDEX(text3->>'$.processName','#',1) AS 'other',
