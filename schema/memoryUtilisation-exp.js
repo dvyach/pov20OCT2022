@@ -9,6 +9,7 @@ cube(`MemoryUtilExp`, {
   'Memory Utilization' as 'metricname'
   from ${db_prefix()}event.Events
   where scrip = 310 and text1->>'$.sysMemUsagePercentageAvg' is not null
+  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   and ${FILTER_PARAMS.MemoryUtilExp.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
   //  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}

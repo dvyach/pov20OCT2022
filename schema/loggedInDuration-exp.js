@@ -7,6 +7,7 @@ cube(`LogonTimeExp`, {
     'Logon Experience' as 'metricname'
     from ${db_prefix()}event.Events
     where scrip = 31 and text1->>'$.systemuserlogontimeinmsec' is not null
+    and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
     and ${FILTER_PARAMS.LogonTimeExp.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
   //  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}

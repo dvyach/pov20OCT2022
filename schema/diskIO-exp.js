@@ -7,6 +7,7 @@ cast((text1->>'$.realTimeDiskIOPct') AS SIGNED) AS 'metric',
 '' AS 'other'
 from ${db_prefix()}event.Events
 where scrip = 97 
+and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
 and ${FILTER_PARAMS.DiskIOExp.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
 `,
 //  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}

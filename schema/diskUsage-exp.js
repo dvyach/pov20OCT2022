@@ -7,6 +7,7 @@ cube(`DiskUsageExp`, {
   'Disk Space' as 'metricname'
   from ${db_prefix()}event.Events
   where scrip = 95 and text1->>'$.pctUsed' is not null
+  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   and ${FILTER_PARAMS.DiskUsageExp.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
   //  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
