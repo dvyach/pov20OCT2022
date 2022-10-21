@@ -172,13 +172,13 @@ cube(`AIMX`, {
     //     sql: `${scores.sc} >= 7.5`
     //   }]
     // },
-    // machcountbd: {
-    //   type: `countDistinct`,
-    //   sql: `machine`,
-    //   filters: [{
-    //     sql: `${scores.sc} <= 3.5`
-    //   }]
-    // },
+    machcountbd: {
+      type: `countDistinct`,
+      sql: `machine`,
+      filters: [{
+        sql: `${scores.sc} <= 3.5`
+      }]
+    },
     // machcountavg: {
     //   type: `countDistinct`,
     //   sql: `machine`,
