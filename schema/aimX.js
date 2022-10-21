@@ -24,7 +24,7 @@ cube(`AIMX`, {
   joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA.site} = {CUBE}.customer and ${CA.host} = ${CUBE}.machine`
+      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`
     },
     scores: {
       relationship: 'belongsTo',
