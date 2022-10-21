@@ -54,11 +54,6 @@ JSON_TABLE(Scores,
       sql: `rk`,
       shown: true,
     },
-    sc: {
-      type: `number`,
-      sql: `sc`,
-      shown: true,
-    },
     mw: {
       type: `number`,
       sql: `mw`,
@@ -106,6 +101,10 @@ JSON_TABLE(Scores,
       sql: `SpecificInfo`,
       type: `string`,
       title: `Specific Info`,
+    },
+    sc: {
+      type: `number`,
+      sql: `sc`
     },
   },
 
