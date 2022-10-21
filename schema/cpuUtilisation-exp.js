@@ -9,9 +9,9 @@ cube(`CPUMemoryUtilizationExperience`, {
  'CPU Utilization' as 'metricname'
   from ${db_prefix()}event.Events
  where scrip = 310 and text1->>'$.sysCpuUsagePercentageAvg' is not null
- and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
  and ${FILTER_PARAMS.CPUMemoryUtilizationExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
 `,
+//  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   title: `CPU Utilization Exp`,
   description: `CPU Utilization Exp`,
 

@@ -2,17 +2,17 @@ import { db_prefix, preparePreagregations } from '../prefix';
 
 cube(`DiskIOExperience`, {
   sql: `SELECT idx,scrip,customer,machine,username, servertime, from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
-         cast((text1->>'$.realTimeDiskIOPct') AS SIGNED) AS 'metric',
-         'DiskIO' as 'metricname',
-         '' AS 'other'
-        from ${db_prefix()}event.Events
-        where scrip = 97 
-        and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
-        and ${FILTER_PARAMS.DiskIOExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
-        `,
+cast((text1->>'$.realTimeDiskIOPct') AS SIGNED) AS 'metric',
+'DiskIO' as 'metricname',
+'' AS 'other'
+from ${db_prefix()}event.Events
+where scrip = 97 
+and ${FILTER_PARAMS.DiskIOExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+`,
+//  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   title: `DiskIO Performance Exp`,
   description: `DiskIO Performance Exp`,
-    joins: {
+  joins: {
     CA: {
       relationship: 'belongsTo',
       sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`,
@@ -29,10 +29,10 @@ cube(`DiskIOExperience`, {
     },
   },
   measures: {
-    count:{
+    count: {
       type: `count`,
     },
-    metriccount:{
+    metriccount: {
       sql: `metric`,
       type: `count`,
     },
@@ -49,13 +49,13 @@ cube(`DiskIOExperience`, {
       title: `Time`,
     },
 
-    metricname:{
+    metricname: {
       sql: `metricname`,
       type: `string`,
       title: `metricname`
     },
 
-    other:{
+    other: {
       sql: `other`,
       type: `string`,
       title: `other`,
@@ -99,7 +99,7 @@ cube(`DiskIOExperience`, {
       type: `string`,
       title: `operatingsystem`,
     },
-    
+
     // from dataid=39
     memorysize: {
       sql: ` ${combinedassets.memorysize}`,
@@ -109,15 +109,15 @@ cube(`DiskIOExperience`, {
   },
   preAggregations: {
     diskioexpcount: {
-      measures: [count,metriccount],
-      dimensions:[dtime,metricname,other, 
-      manufacturer, 
-      chassistype, 
-      operatingsystem, 
-      memorysize, 
-      processormanufacturer, 
-      registeredprocessor, 
-      processorfamily],
+      measures: [count, metriccount],
+      dimensions: [dtime, metricname, other,
+        manufacturer,
+        chassistype,
+        operatingsystem,
+        memorysize,
+        processormanufacturer,
+        registeredprocessor,
+        processorfamily],
       timeDimension: dtime,
       granularity: `day`,
       partitionGranularity: `month`,

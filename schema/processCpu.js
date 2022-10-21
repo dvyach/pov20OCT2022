@@ -7,9 +7,9 @@ cube(`ProcessCPUUtilzationExperience`, {
   'Process CPU Usage' as 'metricname'
   from ${db_prefix()}event.Events
   where scrip = 310 and SUBSTRING_INDEX(text3->>'$.processName','#',1) is not null
-  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   and ${FILTER_PARAMS.ProcessCPUUtilzationExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
    `,
+   //  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   title: `Process CPU Utilzation`,
   description: `Process CPU Utilzation`,
 

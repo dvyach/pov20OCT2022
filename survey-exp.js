@@ -7,9 +7,9 @@ cube(`SurveyExperience`, {
          '' AS 'other'
         from ${db_prefix()}event.Events
         where scrip = 241 
-    and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
     and ${FILTER_PARAMS.SurveyExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
+  //  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   title: `Survey Exp`,
   description: `Survey Exp`,
 

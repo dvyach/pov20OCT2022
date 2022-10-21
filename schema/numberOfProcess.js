@@ -9,9 +9,9 @@ cube(`RunningProcessExperience`, {
   'Processes Running' as 'metricname'
  from ${db_prefix()}event.Events
   where Events.scrip = 310 and text1->>'$.noOfProcessesRunning' is not null
-  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   and ${FILTER_PARAMS.RunningProcessExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
+  //  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   title: `Process Analysis Exp`,
   description: `Process Analysis Exp`,
 
