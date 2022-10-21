@@ -3,12 +3,7 @@
 import { db_prefix, preparePreagregations } from '../prefix';
 
 cube(`ProcessMemoryUtilzationExperience`, {
-  sql: `select idx,
-  scrip,
-  customer,
-  machine,
-  username, 
-  servertime,
+  sql: `select idx, scrip,customer,machine,username, servertime,
   from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   cast((text3->>'$.memAvgPercentage') AS SIGNED) AS 'metric',
   SUBSTRING_INDEX(text3->>'$.processName','#',1) AS 'other',
