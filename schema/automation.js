@@ -122,22 +122,22 @@ cube(`Automation`, {
       type: `string`,
     },
 
-    OperatingSystem: {
-      //   sql: `${CA}.os`,
-      case: {
-        when: [{
-          sql: `${CA.os} is null`,
-          label: `Windows10EnterpriseEdition64-bit`
-        }],
-        else: {
-          label: {
-            sql: `${CA.os}`
-          }
-        }
-      },
-      type: `string` // title: `Operating System`
+    // OperatingSystem: {
+    //   //   sql: `${CA}.os`,
+    //   case: {
+    //     when: [{
+    //       sql: `${CA.os} is null`,
+    //       label: `Windows10EnterpriseEdition64-bit`
+    //     }],
+    //     else: {
+    //       label: {
+    //         sql: `${CA.os}`
+    //       }
+    //     }
+    //   },
+    //   type: `string` // title: `Operating System`
 
-    },
+    // },
     AutomationName: {
       type: `string`,
       sql: `tilename` //  title: `AutomationName`
@@ -229,13 +229,13 @@ cube(`Automation`, {
         TypeOfRun, 
         Site, 
         group, 
-        OperatingSystem, 
         AutomationName, 
         Status, 
         Version,
         manufacturer,
         chassistype,
         registeredprocessor,
+        operatingsystem,
         processorfamily,
         processormanufacturer,
         memorysize],
