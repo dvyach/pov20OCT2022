@@ -1,13 +1,13 @@
 import { db_prefix,preparePreagregations } from '../prefix';
 
-cube(`ProcessCPUUtilzationExperience`, {
+cube(`ProcessCPUUtilzExp`, {
   sql: `select idx,scrip,customer,machine,username, servertime,from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   cast((text3->>'$.cpuAvgPercentage') AS SIGNED) AS 'metric',
   SUBSTRING_INDEX(text3->>'$.processName','#',1) AS 'other',
   'Process CPU Usage' as 'metricname'
   from ${db_prefix()}event.Events
   where scrip = 310 and SUBSTRING_INDEX(text3->>'$.processName','#',1) is not null
-  and ${FILTER_PARAMS.ProcessCPUUtilzationExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+  and ${FILTER_PARAMS.ProcessCPUUtilExp.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
    `,
    //  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   title: `Process CPU Utilzation`,

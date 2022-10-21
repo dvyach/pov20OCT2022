@@ -1,13 +1,13 @@
 import { db_prefix } from '../prefix';
 
-cube(`SurveyExperience`, {
+cube(`SurveyExp`, {
   sql: `SELECT idx,scrip,customer,machine,username, servertime, from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
          cast((text1->>'$.score') AS SIGNED) AS 'metric',
          'Survey' as 'metricname',
          '' AS 'other'
         from ${db_prefix()}event.Events
         where scrip = 241 
-    and ${FILTER_PARAMS.SurveyExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+    and ${FILTER_PARAMS.SurveyExp.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
   //  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   title: `Survey Exp`,

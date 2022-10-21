@@ -1,6 +1,6 @@
 import { db_prefix, preparePreagregations } from '../prefix';
 
-cube(`BootTimeExperience`, {
+cube(`BootTimeExp`, {
   sql: `select idx,scrip,customer,machine,username, servertime,
   from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   round(cast((text1->>'$.systemboottimeinmsec') AS SIGNED)/1000) AS 'metric',
@@ -8,7 +8,7 @@ cube(`BootTimeExperience`, {
   'System Startup' as 'metricname'
   from ${db_prefix()}event.Events
   where scrip = 31 and text1->>'$.systemboottimeinmsec' is not null
-  and ${FILTER_PARAMS.BootTimeExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+  and ${FILTER_PARAMS.BootTimeExp.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
   //  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   title: `Boot Time Experience`,

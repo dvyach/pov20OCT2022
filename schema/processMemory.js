@@ -2,7 +2,7 @@
 
 import { db_prefix, preparePreagregations } from '../prefix';
 
-cube(`ProcessMemoryUtilzationExperience`, {
+cube(`ProcessMemoryUtilExp`, {
   sql: `select idx, scrip,customer,machine,username, servertime,
   from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   cast((text3->>'$.memAvgPercentage') AS SIGNED) AS 'metric',
@@ -10,7 +10,7 @@ cube(`ProcessMemoryUtilzationExperience`, {
   'Process Memory Usage' as 'metricname'
   from ${db_prefix()}event.Events
   where scrip = 310 and SUBSTRING_INDEX(text3->>'$.processName','#',1) is not NULL
-  and ${FILTER_PARAMS.ProcessMemoryUtilzationExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+  and ${FILTER_PARAMS.ProcessMemoryUtilExp.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
    `,
    //  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   title: `Process Memory Utilzation`,

@@ -1,13 +1,13 @@
 import { db_prefix, preparePreagregations } from '../prefix';
 
-cube(`DiskUsageExperience`, {
+cube(`DiskUsageExp`, {
   sql: `select idx,scrip,customer,machine,username,servertime, from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   cast((text1->>'$.pctUsed') AS SIGNED) AS 'metric',
   '' AS 'other',
   'Disk Space' as 'metricname'
   from ${db_prefix()}event.Events
   where scrip = 95 and text1->>'$.pctUsed' is not null
-  and ${FILTER_PARAMS.DiskUsageExperience.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
+  and ${FILTER_PARAMS.DiskUsageExp.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
   //  and ${FILTER_PARAMS.AIMX.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   title: `Disk Usage Analysis`,
