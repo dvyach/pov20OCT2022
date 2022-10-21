@@ -1,6 +1,22 @@
 import { db_prefix } from '../prefix';
 cube(`AIMX`, {
   sql: `select * from ${BootTimeExperience.sql()} as BootTimeExperience
+  UNION
+  select * from ${DiskIOPerformanceExperience.sql()} as DiskIOPerformanceExperience
+  UNION
+  select * from ${DiskUsageExperience.sql()} as DiskUsageExperience
+  UNION
+  select * from ${LogonTimeExpereince.sql()} as LogonTimeExpereince
+  UNION
+  select * from ${CPUMemoryUtilizationExperience.sql()} as CPUMemoryUtilizationExperience
+  UNION
+  select * from ${MemoryUtilizationExperience.sql()} as MemoryUtilizationExperience
+  UNION
+  select * from ${RunningProcessExperience.sql()} as RunningProcessExperience
+  UNION
+  select * from ${ProcessCPUUtilzationExperience.sql()} as ProcessCPUUtilzationExperience
+  UNION
+  select * from ${ProcessMemoryUtilzationExperience.sql()} as ProcessMemoryUtilzationExperience
 `,
   title: `AIM-X`,
   description: `AIM-X Experience`,
