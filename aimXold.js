@@ -1,5 +1,5 @@
 import { db_prefix } from '../prefix';
-cube(`AIMX`, {
+cube(`AIMX2`, {
   sql: `select * from ${BootTimeExp.sql()} as BootTimeExp
   UNION
   select * from ${CPUMemoryUtilExp.sql()} as CPUMemoryUtiliExp
@@ -48,13 +48,13 @@ cube(`AIMX`, {
     machcount: {
       type: `countDistinct`,
       sql: `machine`,
-      shown: false,
+     // shown: false,
     },
 
     MetricTotal: {
       type: `sum`,
       sql: `metric`,
-      shown: false,
+    //  shown: false,
     },
 
     // lastTotal: {
@@ -66,25 +66,25 @@ cube(`AIMX`, {
     ActualScoreTotal: {
       type: `sum`,
       sql: `${scores.sc}`,
-      shown: false,
+     // shown: false,
     },
 
     MetricWt: {
       type: `sum`,
       sql: `${scores.mw}`,
-      shown: false,
+     // shown: false,
     },
 
     SubCatWt: {
       type: `sum`,
       sql: `${scores.scw}`,
-      shown: false,
+   //   shown: false,
     },
 
     CatWt: {
       type: `sum`,
       sql: `${scores.cw}`,
-      shown: false,
+     // shown: false,
     },
 
     // changeTotal: {
@@ -96,18 +96,18 @@ cube(`AIMX`, {
     MetricWtTotal: {
       type: `sum`,
       sql: `${scores.sc} * ${scores.mw}`,
-      shown: false,
+     // shown: false,
     },
 
     SubCatWtTotal: {
       type: `sum`,
       sql: `${scores.sc} * ${scores.scw}`,
-      shown: false,
+    //  shown: false,
     },
     CatWtTotal: {
       type: `sum`,
       sql: `${scores.sc} * ${scores.cw}`,
-      shown: false,
+     // shown: false,
     },
 
     Metric: {

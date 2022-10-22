@@ -41,61 +41,27 @@ cube(`SurveyExp`, {
   },
 
    dimensions: {
-    idx: {
+     idx: {
       sql: `idx`,
       type: `number`,
       primaryKey: true,
     },
-
-    site: {
-      sql: `customer`,
-      type: `string`,
-      title: `Site`,
-    },
-
-    machine: {
-      sql: `machine`,
-      type: `string`,
-      title: `Machine`,
-    },
-
-    adesc: {
-      type: `string`,
-      sql: `adesc`,
-      title: `Answer`,
-    },
-
-    alabel: {
-      type: `string`,
-      sql: `alabel`,
-      title: `Answer Label`,
-    },
-    qdesc: {
-      type: `string`,
-      sql: `qdesc`,
-      title: `Question`,
-    },
-    qlabel: {
-      type: `string`,
-      sql: `qlabel`,
-      title: `Question Label`,
-    },
-    username: {
-      sql: `username`,
-      type: `string`,
-      title: `Device User`,
-    },
-
-    clientver: {
-      sql: `clientversion`,
-      type: `string`,
-      title: `Version`,
-    },
-
-    ETime: {
-      type: `time`,
+    dtime: {
       sql: `dtime`,
-      title: `Execution Time`,
+      type: `time`,
+      title: `Time`,
+    },
+
+    metricname: {
+      sql: `metricname`,
+      type: `string`,
+      title: `metricname`
+    },
+
+    other: {
+      sql: `other`,
+      type: `string`,
+      title: `other`,
     },
 
     // from dataid=5
@@ -148,9 +114,9 @@ cube(`SurveyExp`, {
     surveyexp: {
       type: `rollup`,
       measures: [count, metriccount],
-      dimensions: [site, machine, adesc, alabel, qlabel, qdesc, manufacturer,
+      dimensions: [dtime, metricname, other, manufacturer,
       chassistype,registeredprocessor,processorfamily,processormanufacturer,operatingsystem,memorysize],
-      timeDimension: ETime,
+      timeDimension: dtime,
       granularity: `day`,
       partitionGranularity: `month`,
       scheduledRefresh: true,
