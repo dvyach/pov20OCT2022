@@ -17,6 +17,8 @@ cube(`AIMX`, {
   select * from ${ProcessMemoryUtilExp.sql()} as ProcessMemoryUtilExp
   UNION
   select * from ${DiskIOExp.sql()} as DiskIOExp
+  UNION
+  select * from ${SurveyExp.sql()} as SurveyExp
 `,
   title: `AIM-X`,
   description: `AIM-X Experience`,
