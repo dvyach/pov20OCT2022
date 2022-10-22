@@ -69,10 +69,10 @@ cube('InstalledAppsDaily', {
       type: `time`,
       title: `Latest Date`,
     },
-    NameVersion: {
-      sql: `NameVersion`,
-      type: `string`,
-    },
+    // NameVersion: {
+    //   sql: `NameVersion`,
+    //   type: `string`,
+    // },
     version: {
       sql: ` version`,
       type: `string`,
