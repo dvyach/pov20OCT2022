@@ -58,7 +58,7 @@ JSON_TABLE(Scores,
     sc: {
       type: `number`,
       sql: `sc`,
-      //   shown: true,
+      // shown: true,
     },
     mw: {
       type: `number`,
@@ -81,6 +81,7 @@ JSON_TABLE(Scores,
       sql: `id`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
 
     MetricName: {

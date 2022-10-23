@@ -43,6 +43,7 @@ and ${FILTER_PARAMS.DiskIOExp.dtime.filter((from, to) => `servertime >= UNIX_TIM
       sql: `idx`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
     dtime: {
       sql: `dtime`,

@@ -75,7 +75,7 @@ cube(`A8_User_Machine_Domain_Details`, {
       sql: `CONCAT(date, machineid, dataid, host, domain)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     machineId: {

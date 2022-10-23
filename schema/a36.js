@@ -78,7 +78,7 @@ cube(`A36_Installed_apps`, {
       sql: `CONCAT(date, machineid, installedsoftwarenames, version)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     machineId: {

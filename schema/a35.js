@@ -78,7 +78,7 @@ cube(`A35_Installed_Patches`, {
       sql: `CONCAT(date,machineid,dataid,kbid,descriptionname)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     machineId: {

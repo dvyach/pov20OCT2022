@@ -40,6 +40,7 @@ cube(`HardReset`, {
       sql: `idx`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
 
     site: {

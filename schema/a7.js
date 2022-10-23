@@ -77,7 +77,7 @@ cube(`A7_DNS_Server_Details`, {
       sql: `CONCAT(date, machineid, dataid,dnsserver)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     machineId: {

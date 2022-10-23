@@ -95,6 +95,7 @@ cube(`BootTime`, {
       sql: `idx`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
 
     site: {

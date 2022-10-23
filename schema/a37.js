@@ -87,7 +87,7 @@ cube(`A37_System_Disk_Details`, {
       sql: `CONCAT(date, machineid, logicaldiskvolumeserialnumber)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     machineId: {

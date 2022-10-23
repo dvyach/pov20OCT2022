@@ -92,7 +92,7 @@ cube(`A5_Chassis_Details`, {
       sql: `CONCAT(date, machineid, dataid,assettag,manufacturer,serialnumber)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
     machineId: {
       sql: `machineid`,

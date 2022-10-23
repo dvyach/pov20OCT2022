@@ -48,6 +48,7 @@ cube(`CPUMemoryUtilExp`, {
       sql: `idx`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
 
     metricname: {

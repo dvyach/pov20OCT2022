@@ -46,6 +46,7 @@ cube(`ProcessMemoryUtilExp`, {
       sql: `idx`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
 
     dtime: {

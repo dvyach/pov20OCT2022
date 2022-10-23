@@ -75,7 +75,7 @@ cube(`A56_Useraccount_Details`, {
 `,
   title: `Domain Details`,
   description: `Domain Details`,
-  
+
   joins: {
     GA: {
       relationship: 'belongsTo',
@@ -94,7 +94,7 @@ cube(`A56_Useraccount_Details`, {
       sql: `CONCAT(date, machineid, useraccountname, useraccountdomain)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     machineId: {
@@ -245,23 +245,23 @@ cube(`A56_Useraccount_Details`, {
       partitionGranularity: `day`,
       timeDimension: LatestDate,
       measures: [count],
-      dimensions: [site, Device, machineId,username, 
-      useraccountname,
-      useraccountdomain,
-      useraccountgroups,
-      useraccountlockout,
-      useraccountdisabled,
-      useraccountfullname,
-      useraccountprivileges,
-      useraccountdescription,
-      useraccountpasswordage,
-      useraccountfailedlogons,
-      useraccountpasswordexpires,
-      useraccountpasswordrequired,
-      useraccountsuccessfullogons,
-      useraccountpasswordchangeable,
-      useraccountlogonallowedworkstations,
-      useraccountuserdiskstoragesizelimit],
+      dimensions: [site, Device, machineId, username,
+        useraccountname,
+        useraccountdomain,
+        useraccountgroups,
+        useraccountlockout,
+        useraccountdisabled,
+        useraccountfullname,
+        useraccountprivileges,
+        useraccountdescription,
+        useraccountpasswordage,
+        useraccountfailedlogons,
+        useraccountpasswordexpires,
+        useraccountpasswordrequired,
+        useraccountsuccessfullogons,
+        useraccountpasswordchangeable,
+        useraccountlogonallowedworkstations,
+        useraccountuserdiskstoragesizelimit],
       scheduledRefresh: true,
       type: `rollup`,
       refreshKey: {

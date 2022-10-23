@@ -86,7 +86,7 @@ cube(`A10_System_Information`, {
       sql: `CONCAT(date, machineid, dataid,biosvendor,biosdate,syssrlnum,systemmanufacturer)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
     machineId: {
       sql: `machineid`,

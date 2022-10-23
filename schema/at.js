@@ -14,7 +14,7 @@ cube(`AT`, {
       sql: `id`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
   },
   preAggregations: {},

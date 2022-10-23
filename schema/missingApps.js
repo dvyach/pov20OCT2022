@@ -92,7 +92,7 @@ inner join
       sql: `CONCAT(NameVersion, machineid )`,
       type: `string`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     NameVersion: {

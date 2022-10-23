@@ -35,7 +35,6 @@ cube(`USBblock`, {
   measures: {
     count: {
       type: `count`,
-      shown: false,
     },
   },
   dimensions: {
@@ -43,6 +42,7 @@ cube(`USBblock`, {
       sql: `idx`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
 
     site: {

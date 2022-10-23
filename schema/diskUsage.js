@@ -48,6 +48,7 @@ cube(`DiskUsage`, {
       sql: `idx`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
 
     drive: {

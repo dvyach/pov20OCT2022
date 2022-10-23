@@ -42,6 +42,7 @@ cube(`GA`, {
       sql: `gid`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
 
     gname: {

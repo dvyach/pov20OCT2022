@@ -102,7 +102,8 @@ cube(`AIMX`, {
     idx: {
       sql: `idx`,
       type: `number`,
-      primaryKey: true
+      primaryKey: true,
+      shown: true
     },
     site: {
       sql: `${CUBE}.customer`,

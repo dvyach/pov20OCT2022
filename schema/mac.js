@@ -23,7 +23,7 @@ cube(`MAC`, {
       sql: `machineid`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
     location: {
       sql: `cust`,

@@ -88,6 +88,7 @@ cube(`CPUMemoryUtilization`, {
       sql: `idx`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
     site: {
       sql: `customer`,

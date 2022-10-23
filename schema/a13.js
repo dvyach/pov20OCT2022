@@ -80,7 +80,7 @@ cube(`A13_Memory_Array_Mapped_Address`, {
       sql: `CONCAT(date, machineid, dataid,arrayrangesize,partitionwidth,arrayendingaddress)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     machineId: {

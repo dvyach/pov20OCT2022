@@ -76,7 +76,7 @@ cube(`A18_Physical_Memory_Array`, {
       sql: `CONCAT(date, machineid, dataid,maximumcapacityingb)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     machineId: {

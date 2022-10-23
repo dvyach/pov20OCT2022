@@ -35,6 +35,7 @@ cube(`combinedassets`, {
       sql: `machineid`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
 
     dataid: {

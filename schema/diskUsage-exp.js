@@ -45,6 +45,7 @@ cube(`DiskUsageExp`, {
       sql: `idx`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
     dtime: {
       sql: `dtime`,

@@ -58,6 +58,7 @@ cube(`ProcessCPU`, {
       sql: `idx`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
 
     // site: {

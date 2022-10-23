@@ -91,7 +91,7 @@ cube(`A19_Portable_Battery_Details`, {
       sql: `CONCAT(date, machineid, dataid,batteryname,serialnumberbattery,sbdsmanufacturedate)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     machineId: {

@@ -34,7 +34,7 @@ cube(`AssetDataDaily`, {
       sql: `id`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     dataid: {

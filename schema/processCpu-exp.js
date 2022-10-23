@@ -45,6 +45,7 @@ cube(`ProcessCPUUtilExp`, {
       sql: `idx`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
     metricname:{
       sql: `metricname`,

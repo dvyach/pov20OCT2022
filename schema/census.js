@@ -82,6 +82,7 @@ from ${db_prefix()}core.Census  as C join ${db_prefix()}core.Customers Cu on C.s
       sql: `id`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
     host: {
       type: `string`,

@@ -85,7 +85,7 @@ cube(`A39_Memory_Information`, {
       sql: `CONCAT(date, machineid, dataid,memoryassettag,partnumber,manufacturer,serialnum)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     machineId: {

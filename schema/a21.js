@@ -78,7 +78,7 @@ cube(`A21_System_Properties`, {
       sql: `CONCAT(date, machineid, dataid,machinename,username)`,
       type: `number`,
       primaryKey: true,
-      shown: false,
+      shown: true
     },
 
     machineId: {

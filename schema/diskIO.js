@@ -73,6 +73,7 @@ cube(`DiskIOPerformance`, {
       sql: `idx`,
       type: `number`,
       primaryKey: true,
+      shown: true
     },
 
     site: {
