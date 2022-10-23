@@ -41,36 +41,36 @@ cube(`AIMX`, {
       type: `count`,
       shown: true
     },
-    // machcountgood: {
-    //   type: `countDistinct`,
-    //   sql: `${CUBE}.machine`,
-    //   //  This was added as a test - 
-    //   // sql: `${CA.host}`,
-    //   //sql: `${CA.host} where ${scores.sc} >= 7.5`,
-    //   filters: [{
-    //     sql: `${scores.sc} >= 7.5`
-    //   }]
-    // },
-    // machcountbd: {
-    //   type: `countDistinct`,
-    //   sql: `${CUBE}.machine`,
-    //   //  This was added as a test - 
-    //   // sql: `${CA.host}`,
-    //   //${CA.host} where ${scores.sc} <= 3.5`,
-    //   filters: [{
-    //     sql: `${scores.sc} <= 3.5`
-    //   }]
-    // },
-    // machcountavg: {
-    //   type: `countDistinct`,
-    //   sql: `${CUBE}.machine`,
-    //   //  This was added as a test - 
-    //   // sql: `${CA.host}`,
-    //   //${CA.host} where ${scores.sc} > 3.5 and ${scores.sc} < 7.5`,
-    //   filters: [{
-    //     sql: `${scores.sc} > 3.5 and ${scores.sc} < 7.5`
-    //   }]
-    // },
+    machcountgood: {
+      type: `countDistinct`,
+      sql: `${CUBE}.machine`,
+      //  This was added as a test - 
+      // sql: `${CA.host}`,
+      //sql: `${CA.host} where ${scores.sc} >= 7.5`,
+      filters: [{
+        sql: `${scores.sc} >= 7.5`
+      }]
+    },
+    machcountbd: {
+      type: `countDistinct`,
+      sql: `${CUBE}.machine`,
+      //  This was added as a test - 
+      // sql: `${CA.host}`,
+      //${CA.host} where ${scores.sc} <= 3.5`,
+      filters: [{
+        sql: `${scores.sc} <= 3.5`
+      }]
+    },
+    machcountavg: {
+      type: `countDistinct`,
+      sql: `${CUBE}.machine`,
+      //  This was added as a test - 
+      // sql: `${CA.host}`,
+      //${CA.host} where ${scores.sc} > 3.5 and ${scores.sc} < 7.5`,
+      filters: [{
+        sql: `${scores.sc} > 3.5 and ${scores.sc} < 7.5`
+      }]
+    },
     machcount: {
       type: `countDistinct`,
       sql: `${CUBE}.machine`,
@@ -202,9 +202,26 @@ cube(`AIMX`, {
     }
   },
   preAggregations: {
+    AIMXactualscore: {
+      measures: [ActualScore],
+      timeDimension: dtime,
+      granularity: `day`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
     AIMXcatScore: {
-      measures: [ActualScore, machcount],
-      //measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+      // measures: [ActualScore, machcount],
+      measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
       dimensions: [Category],
       timeDimension: dtime,
       granularity: `day`,
@@ -222,8 +239,8 @@ cube(`AIMX`, {
       }
     },
     AIMXsubcatScore: {
-      measures: [ActualScore, machcount],
-      // measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+      // measures: [ActualScore, machcount],
+       measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
       dimensions: [subcategory],
       timeDimension: dtime,
       granularity: `day`,
@@ -241,8 +258,9 @@ cube(`AIMX`, {
       }
     },
     AIMXMnameScore: {
-      measures: [ActualScore, machcount],
-      //measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+
+     //  measures: [ActualScore, machcount],
+      measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
       dimensions: [MetricName],
       timeDimension: dtime,
       granularity: `day`,
@@ -260,8 +278,8 @@ cube(`AIMX`, {
       }
     },
     AIMXMdescScore: {
-      measures: [ActualScore, machcount],
-      // measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+      // measures: [ActualScore, machcount],
+       measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
       dimensions: [MetricDesc],
       timeDimension: dtime,
       granularity: `day`,
@@ -279,8 +297,8 @@ cube(`AIMX`, {
       }
     },
     AIMXsite: {
-      measures: [ActualScore, machcount],
-      // measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+      // measures: [ActualScore, machcount],
+       measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
       dimensions: [site],
       timeDimension: dtime,
       granularity: `day`,
@@ -298,8 +316,8 @@ cube(`AIMX`, {
       }
     },
     AIMXgroup: {
-      measures: [ActualScore, machcount],
-      //measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+     // measures: [ActualScore, machcount],
+      measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
       dimensions: [group],
       timeDimension: dtime,
       granularity: `day`,

@@ -58,10 +58,7 @@ cube(`A16_OS_Details`, {
     and ad.dataid = 16
 `,
   joins: {
-    MAC: {
-      relationship: 'belongsTo',
-      sql: `${MAC.idm} = ${CUBE}.machineid`,
-    },
+
     GA: {
       relationship: 'belongsTo',
       sql: `${GA.host} = ${CUBE}.device`,

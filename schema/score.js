@@ -40,6 +40,75 @@ JSON_TABLE(Scores,
 
   },
   measures: {
+    // varto: {
+    //   type: `number`,
+    //   sql: `varto`,
+    //   //  shown: true,
+    // },
+    // varfrom: {
+    //   type: `number`,
+    //   sql: `varfrom`,
+    //   //  shown: true,
+    // },
+    // rk: {
+    //   type: `number`,
+    //   sql: `rk`,
+    //   // shown: true,
+    // },
+    // sc: {
+    //   type: `number`,
+    //   sql: `sc`,
+    //   // shown: true,
+    // },
+    // mw: {
+    //   type: `number`,
+    //   sql: `mw`,
+    //   //    shown: true,
+    // },
+    // scw: {
+    //   type: `number`,
+    //   sql: `scw`,
+    //   //   shown: true,
+    // },
+    // cw: {
+    //   type: `number`,
+    //   sql: `cw`,
+    //   //   shown: true,
+    // },
+  },
+  dimensions: {
+    id: {
+      sql: `id`,
+      type: `number`,
+      primaryKey: true,
+      shown: true
+    },
+
+    MetricName: {
+      sql: `MetricName`,
+      type: `string`,
+      title: `Metric Name`,
+    },
+    Category: {
+      sql: `Category`,
+      type: `string`,
+      title: `Category`,
+    },
+    subcategory: {
+      sql: `subcategory`,
+      type: `string`,
+      title: `Sub Category`,
+    },
+    MetricDesc: {
+      sql: `MetricDesc`,
+      type: `string`,
+      title: `Metric Description`,
+    },
+    SpecificInfo: {
+      sql: `SpecificInfo`,
+      type: `string`,
+      title: `Specific Info`,
+    },
     varto: {
       type: `number`,
       sql: `varto`,
@@ -74,40 +143,6 @@ JSON_TABLE(Scores,
       type: `number`,
       sql: `cw`,
       //   shown: true,
-    },
-  },
-  dimensions: {
-    id: {
-      sql: `id`,
-      type: `number`,
-      primaryKey: true,
-      shown: true
-    },
-
-    MetricName: {
-      sql: `MetricName`,
-      type: `string`,
-      title: `Metric Name`,
-    },
-    Category: {
-      sql: `Category`,
-      type: `string`,
-      title: `Category`,
-    },
-    subcategory: {
-      sql: `subcategory`,
-      type: `string`,
-      title: `Sub Category`,
-    },
-    MetricDesc: {
-      sql: `MetricDesc`,
-      type: `string`,
-      title: `Metric Description`,
-    },
-    SpecificInfo: {
-      sql: `SpecificInfo`,
-      type: `string`,
-      title: `Specific Info`,
     },
   },
 
