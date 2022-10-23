@@ -36,13 +36,13 @@ cube(`procdur`, {
   measures: {
     count: {
       type: `count`,
-      shown: false,
+      //   shown: false,
     },
 
     procdurationTotal: {
       type: `sum`,
       sql: `procduration`,
-      shown: false,
+      //   shown: false,
     },
     procduration: {
       type: `number`,
@@ -52,7 +52,7 @@ cube(`procdur`, {
     winprocdurationTotal: {
       type: `sum`,
       sql: `winprocduration`,
-      shown: false,
+      //   shown: false,
     },
     winprocduration: {
       type: `number`,

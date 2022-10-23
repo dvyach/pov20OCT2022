@@ -32,13 +32,13 @@ cube(`ProcessMEM`, {
     // ProcessName is not null to be used in filter when viz is created
     count: {
       type: `count`,
-      shown: false,
+    //  shown: false,
     },
 
     ProcessMEMavg: {
       type: `avg`,
       sql: `ProcessMEM`,
-      shown: false,
+   //   shown: false,
     },
 
     // use avergae instead of SQL calculation

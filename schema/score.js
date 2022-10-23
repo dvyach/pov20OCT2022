@@ -1,5 +1,6 @@
-import { db_prefix, preparePreagregations
- } from '../prefix';
+import {
+  db_prefix, preparePreagregations
+} from '../prefix';
 
 cube(`scores`, {
   sql: `select id,scr.sc as sc,scr.varfrom as varfrom,scr.varto as varto,scr.rk as rk,
@@ -21,7 +22,7 @@ JSON_TABLE(Scores,
                  ) as scr`,
   title: `Experience Score`,
   description: `DEA Score`,
-    joins: {
+  joins: {
     CA: {
       relationship: 'belongsTo',
       sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`,
@@ -37,42 +38,42 @@ JSON_TABLE(Scores,
       sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`,
     },
 
-    },
+  },
   measures: {
     varto: {
       type: `number`,
       sql: `varto`,
-      shown: true,
+      //  shown: true,
     },
     varfrom: {
       type: `number`,
       sql: `varfrom`,
-      shown: true,
+      //  shown: true,
     },
     rk: {
       type: `number`,
       sql: `rk`,
-      shown: true,
+      // shown: true,
     },
     sc: {
       type: `number`,
       sql: `sc`,
-      shown: true,
+      //   shown: true,
     },
     mw: {
       type: `number`,
       sql: `mw`,
-      shown: true,
+      //    shown: true,
     },
     scw: {
       type: `number`,
       sql: `scw`,
-      shown: true,
+      //   shown: true,
     },
     cw: {
       type: `number`,
       sql: `cw`,
-      shown: true,
+      //   shown: true,
     },
   },
   dimensions: {
@@ -110,28 +111,28 @@ JSON_TABLE(Scores,
   },
 
   preAggregations: {
-   /* main: {
-      measures: [
-         varto, varfrom,rk,sc,mw,scw,cw
-      ],
-      dimensions: [
-        id,SpecificInfo,MetricDesc,subcategory,Category,MetricName,
-        scores.manufacturer,
-        scores.chassistype,
-        scores.registeredprocessor,
-        scores.processorfamily,
-        scores.processormanufacturer,
-        scores.memorysize,
-        scores.operatingsystem
-      ],
-      refreshKey: {
-        every: `1 day`,
-      },
-      indexes: {
-        main: {
-          columns: [MetricName, SpecificInfo],
-        },
-      },
-    },*/
+    /* main: {
+       measures: [
+          varto, varfrom,rk,sc,mw,scw,cw
+       ],
+       dimensions: [
+         id,SpecificInfo,MetricDesc,subcategory,Category,MetricName,
+         scores.manufacturer,
+         scores.chassistype,
+         scores.registeredprocessor,
+         scores.processorfamily,
+         scores.processormanufacturer,
+         scores.memorysize,
+         scores.operatingsystem
+       ],
+       refreshKey: {
+         every: `1 day`,
+       },
+       indexes: {
+         main: {
+           columns: [MetricName, SpecificInfo],
+         },
+       },
+     },*/
   },
 });
