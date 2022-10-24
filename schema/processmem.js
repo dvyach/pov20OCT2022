@@ -3,7 +3,7 @@ import { db_prefix, preparePreagregations } from '../prefix';
 cube(`ProcessMEM`, {
   sql: `select idx,scrip,customer,machine,username,servertime, from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   text3->>'$.processName' AS 'ProcessName',
-  cast((text3->>'$.memAvgPercentage') AS UNSIGNED INTEGER) AS 'ProcessMEM'
+  cast((text3->>'$.memAvgPercentage') AS UNSIGNED INTEGER) AS 'ProcessMEM',
   cast((text3->>'$.windowName') AS CHAR ) AS 'Window'
    from ${db_prefix()}event.Events
   where scrip = 310
