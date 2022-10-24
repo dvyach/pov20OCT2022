@@ -35,6 +35,11 @@ cube(`DiskUsage`, {
       type: `count`,
 
     },
+    machinedistcount:{
+      type: `countDistinct`,
+      sql: `machine`,
+      title: `Distinct Count`
+    },
 
     dusedperTotal: {
       type: `avg`,
@@ -186,6 +191,38 @@ cube(`DiskUsage`, {
       },
     },
 
+  DUdistinct: {
+      type: `rollup`,
+      // useOriginalSqlPreAggregations: true,
+      measures: [machinedistcount],
+      dimensions: [drive,
+        site,
+        group,
+        clientver,
+        DiskUsage.manufacturer,
+        DiskUsage.chassistype,
+        DiskUsage.registeredprocessor,
+        DiskUsage.processorfamily,
+        DiskUsage.processormanufacturer,
+        DiskUsage.memorysize,
+        DiskUsage.operatingsystem
+      ],
+      timeDimension: ETime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour`,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+    },
     DUAvg: {
       type: `rollup`,
       // useOriginalSqlPreAggregations: true,

@@ -40,6 +40,11 @@ cube(`DiskIOPerformance`, {
       type: `count`,
     },
 
+    machinedistcount:{
+      type: `countDistinct`,
+      sql: `machine`,
+      title: `Distinct Count`
+    },
     averagequeuelengthTotal: {
       type: `avg`,
       sql: `averagequeuelength`,
@@ -203,7 +208,33 @@ cube(`DiskIOPerformance`, {
         sql: `SELECT NOW()`,
       },
     },
-
+ MDdistinct: {
+      type: `rollup`,
+      measures: [machinedistcount],
+      dimensions: [site, group, clientver, drive,
+      DiskIOPerformance.manufacturer,
+      DiskIOPerformance.chassistype,
+      DiskIOPerformance.registeredprocessor,
+      DiskIOPerformance.processorfamily,
+      DiskIOPerformance.processormanufacturer,
+      DiskIOPerformance.memorysize,
+      DiskIOPerformance.operatingsystem],
+      timeDimension: ETime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour`,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+    },
     MDAvg: {
       type: `rollup`,
       measures: [dioperTotal, percentbusytimeTotal, readpersecondTotal, writespersecondTotal, averagequeuelengthTotal,],
