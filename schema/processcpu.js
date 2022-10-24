@@ -4,7 +4,7 @@ cube(`ProcessCPU`, {
   sql: `select idx,scrip,customer,machine,username,servertime, from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
   text3->>'$.processName' AS 'ProcessName',
   cast((text3->>'$.cpuAvgPercentage') AS UNSIGNED INTEGER) AS 'ProcessCPU'
-  cast((text3->>'$.windowName') AS CHAR ) AS 'Window',
+  cast((text3->>'$.windowName') AS CHAR ) AS 'Window'
    from ${db_prefix()}event.Events
   where scrip = 310
   and ${FILTER_PARAMS.ProcessCPU.dtime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
