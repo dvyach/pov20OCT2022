@@ -101,11 +101,11 @@ cube(`A37_System_Disk_Details`, {
       title: `logicaldiskname`,
     },
 
-    partitioninfoname: {
-      sql: `partitioninfoname`,
-      type: `string`,
-      title: `partitioninfoname`,
-    },
+    // partitioninfoname: {
+    //   sql: `partitioninfoname`,
+    //   type: `string`,
+    //   title: `partitioninfoname`,
+    // },
 
     logicaldiskcompressed: {
       sql: `logicaldiskcompressed`,
