@@ -73,10 +73,9 @@ cube(`AIMX`, {
     },
     machcount: {
       type: `countDistinct`,
-      sql: `${CUBE}.machine`,
-      //sql: `${CA.host}`,
-    },
+      sql: `${CUBE}.machine` //sql: `${CA.host}`,
 
+    },
     Metric: {
       type: `avg`,
       sql: `${CUBE}.metric`
@@ -240,7 +239,7 @@ cube(`AIMX`, {
     },
     AIMXsubcatScore: {
       // measures: [ActualScore, machcount],
-       measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+      measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
       dimensions: [subcategory],
       timeDimension: dtime,
       granularity: `day`,
@@ -258,8 +257,7 @@ cube(`AIMX`, {
       }
     },
     AIMXMnameScore: {
-
-     //  measures: [ActualScore, machcount],
+      //  measures: [ActualScore, machcount],
       measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
       dimensions: [MetricName],
       timeDimension: dtime,
@@ -279,7 +277,7 @@ cube(`AIMX`, {
     },
     AIMXMdescScore: {
       // measures: [ActualScore, machcount],
-       measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+      measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
       dimensions: [MetricDesc],
       timeDimension: dtime,
       granularity: `day`,
@@ -298,7 +296,7 @@ cube(`AIMX`, {
     },
     AIMXsite: {
       // measures: [ActualScore, machcount],
-       measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+      measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
       dimensions: [site],
       timeDimension: dtime,
       granularity: `day`,
@@ -316,7 +314,7 @@ cube(`AIMX`, {
       }
     },
     AIMXgroup: {
-     // measures: [ActualScore, machcount],
+      // measures: [ActualScore, machcount],
       measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
       dimensions: [group],
       timeDimension: dtime,
@@ -352,6 +350,23 @@ cube(`AIMX`, {
         sql: `SELECT NOW()`
       }
     },
-
+    // main: {
+    //   measures: [AIMX.machcountbd, AIMX.machcountgood, AIMX.machcountavg],
+    //   dimensions: [AIMX.Category],
+    //   timeDimension: AIMX.dtime,
+    //   granularity: `day`,
+    //  // partitionGranularity: `month`,
+    //   scheduledRefresh: true,
+    //   refreshKey: {
+    //     every: `3600 seconds`,
+    //     incremental: true
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // }
   }
 });

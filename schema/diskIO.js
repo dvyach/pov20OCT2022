@@ -1,5 +1,4 @@
 import { db_prefix, preparePreagregations } from '../prefix';
-
 cube(`DiskIOPerformance`, {
   sql: `SELECT idx,customer, machine, scrip, username,servertime as stime,
   from_unixtime(servertime,'%Y-%m-%d %H:%i:%s') as dtime,
@@ -16,63 +15,50 @@ cube(`DiskIOPerformance`, {
   `,
   title: `DiskIO Performance`,
   description: 'Cube records Drivename, average Q length, read/write per sec, % busy time, and realtime Disk io %',
-
-    joins: {
+  joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`,
+      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`
     },
-
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA.host} = ${CUBE}.machine`,
+      sql: `${GA.host} = ${CUBE}.machine`
     },
-
     combinedassets: {
       relationship: 'belongsTo',
-      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`,
-    },
-
-    },
-
+      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`
+    }
+  },
   measures: {
     count: {
-      type: `count`,
+      type: `count`
     },
-
-    machinedistcount:{
+    machinedistcount: {
       type: `countDistinct`,
       sql: `machine`,
       title: `Distinct Count`
     },
     averagequeuelengthTotal: {
       type: `avg`,
-      sql: `averagequeuelength`,
+      sql: `averagequeuelength`
     },
-
     percentbusytimeTotal: {
       type: `avg`,
-      sql: `percentbusytime`,
+      sql: `percentbusytime`
     },
-
     readpersecondTotal: {
       type: `avg`,
-      sql: `readpersecond`,
+      sql: `readpersecond`
     },
-
     writespersecondTotal: {
       type: `avg`,
-      sql: `writespersecond`,
+      sql: `writespersecond`
     },
-
     dioperTotal: {
       type: `avg`,
-      sql: `dioper`,
-    },
-
-    
+      sql: `dioper`
+    }
   },
-
   dimensions: {
     idx: {
       sql: `idx`,
@@ -80,118 +66,95 @@ cube(`DiskIOPerformance`, {
       primaryKey: true,
       shown: true
     },
-
     site: {
       sql: `customer`,
       type: `string`,
-      title: `Site`,
+      title: `Site`
     },
-
     machine: {
       sql: `machine`,
       type: `string`,
-      title: `Device`,
+      title: `Device`
     },
-
     group: {
       case: {
-        when: [
-          {
-            sql: `${GA.name} is null`,
-            label: `Un-Grouped`,
-          },
-        ],
+        when: [{
+          sql: `${GA.name} is null`,
+          label: `Un-Grouped`
+        }],
         else: {
           label: {
-            sql: `${GA.name}`,
-          },
-        },
+            sql: `${GA.name}`
+          }
+        }
       },
-      type: `string`,
+      type: `string`
     },
-
-
     username: {
       sql: `username`,
       type: `string`,
-      title: `Device User`,
+      title: `Device User`
     },
-
     clientver: {
       sql: `clientversion`,
       type: `string`,
-      title: `Version`,
+      title: `Version`
     },
-
     drive: {
       type: `string`,
       sql: `drive`,
-      title: `Drive Name`,
+      title: `Drive Name`
     },
-
     ETime: {
       type: `time`,
       sql: `dtime`,
-      title: `Converted Time`,
+      title: `Converted Time`
     },
     // from dataid=5
     manufacturer: {
       sql: ` ${combinedassets.manufacturer}`,
       type: `string`,
-      title: `manufacturer`,
+      title: `manufacturer`
     },
-
     chassistype: {
       sql: ` ${combinedassets.chassistype}`,
       type: `string`,
-      title: `chassistype`,
+      title: `chassistype`
     },
-
     // from dataid=20
     registeredprocessor: {
       sql: ` ${combinedassets.registeredprocessor}`,
       type: `string`,
-      title: `registeredprocessor`,
+      title: `registeredprocessor`
     },
-
     processorfamily: {
       sql: ` ${combinedassets.processorfamily}`,
       type: `string`,
-      title: `processorfamily`,
+      title: `processorfamily`
     },
-
     processormanufacturer: {
       sql: ` ${combinedassets.processormanufacturer}`,
       type: `string`,
-      title: `processormanufacturer`,
+      title: `processormanufacturer`
     },
-
     // from dataid=16
     operatingsystem: {
       sql: ` ${combinedassets.operatingsystem}`,
       type: `string`,
-      title: `operatingsystem`,
+      title: `operatingsystem`
     },
-    
     // from dataid=39
     memorysize: {
       sql: ` ${combinedassets.memorysize}`,
       type: `string`,
-      title: `memorysize`,
-    },
+      title: `memorysize`
+    }
   },
   preAggregations: {
     MDCount: {
       type: `rollup`,
       measures: [dioperTotal, percentbusytimeTotal, readpersecondTotal, writespersecondTotal, averagequeuelengthTotal, count],
-      dimensions: [site, group, clientver, drive,
-      DiskIOPerformance.manufacturer,
-      DiskIOPerformance.chassistype,
-      DiskIOPerformance.registeredprocessor,
-      DiskIOPerformance.processorfamily,
-      DiskIOPerformance.processormanufacturer,
-      DiskIOPerformance.memorysize,
-      DiskIOPerformance.operatingsystem],
+      dimensions: [site, group, clientver, drive, DiskIOPerformance.manufacturer, DiskIOPerformance.chassistype, DiskIOPerformance.registeredprocessor, DiskIOPerformance.processorfamily, DiskIOPerformance.processormanufacturer, DiskIOPerformance.memorysize, DiskIOPerformance.operatingsystem],
       timeDimension: ETime,
       granularity: `day`,
       partitionGranularity: `month`,
@@ -199,26 +162,19 @@ cube(`DiskIOPerformance`, {
       refreshKey: {
         every: `1800 seconds`,
         incremental: true,
-        updateWindow: `6 hour`,
+        updateWindow: `6 hour`
       },
       buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
       },
       buildRangeEnd: {
-        sql: `SELECT NOW()`,
-      },
+        sql: `SELECT NOW()`
+      }
     },
- MDdistinct: {
+    MDdistinct: {
       type: `rollup`,
       measures: [machinedistcount],
-      dimensions: [site, group, clientver, drive,
-      DiskIOPerformance.manufacturer,
-      DiskIOPerformance.chassistype,
-      DiskIOPerformance.registeredprocessor,
-      DiskIOPerformance.processorfamily,
-      DiskIOPerformance.processormanufacturer,
-      DiskIOPerformance.memorysize,
-      DiskIOPerformance.operatingsystem],
+      dimensions: [site, group, clientver, drive, DiskIOPerformance.manufacturer, DiskIOPerformance.chassistype, DiskIOPerformance.registeredprocessor, DiskIOPerformance.processorfamily, DiskIOPerformance.processormanufacturer, DiskIOPerformance.memorysize, DiskIOPerformance.operatingsystem],
       timeDimension: ETime,
       granularity: `hour`,
       partitionGranularity: `day`,
@@ -226,26 +182,19 @@ cube(`DiskIOPerformance`, {
       refreshKey: {
         every: `1800 seconds`,
         incremental: true,
-        updateWindow: `6 hour`,
+        updateWindow: `6 hour`
       },
       buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
       },
       buildRangeEnd: {
-        sql: `SELECT NOW()`,
-      },
+        sql: `SELECT NOW()`
+      }
     },
     MDAvg: {
       type: `rollup`,
-      measures: [dioperTotal, percentbusytimeTotal, readpersecondTotal, writespersecondTotal, averagequeuelengthTotal,],
-      dimensions: [site, group, clientver, drive,
-      DiskIOPerformance.manufacturer,
-      DiskIOPerformance.chassistype,
-      DiskIOPerformance.registeredprocessor,
-      DiskIOPerformance.processorfamily,
-      DiskIOPerformance.processormanufacturer,
-      DiskIOPerformance.memorysize,
-      DiskIOPerformance.operatingsystem],
+      measures: [dioperTotal, percentbusytimeTotal, readpersecondTotal, writespersecondTotal, averagequeuelengthTotal, ],
+      dimensions: [site, group, clientver, drive, DiskIOPerformance.manufacturer, DiskIOPerformance.chassistype, DiskIOPerformance.registeredprocessor, DiskIOPerformance.processorfamily, DiskIOPerformance.processormanufacturer, DiskIOPerformance.memorysize, DiskIOPerformance.operatingsystem],
       timeDimension: ETime,
       granularity: `day`,
       partitionGranularity: `month`,
@@ -253,14 +202,32 @@ cube(`DiskIOPerformance`, {
       refreshKey: {
         every: `1800 seconds`,
         incremental: true,
-        updateWindow: `6 hour`,
+        updateWindow: `6 hour`
       },
       buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
       },
       buildRangeEnd: {
-        sql: `SELECT NOW()`,
-      },
+        sql: `SELECT NOW()`
+      }
     },
-  },
+    measuresonly: {
+      measures: [DiskIOPerformance.percentbusytimeTotal, DiskIOPerformance.machinedistcount,DiskIOPerformance.readpersecondTotal, DiskIOPerformance.writespersecondTotal, DiskIOPerformance.averagequeuelengthTotal,],
+      timeDimension: DiskIOPerformance.ETime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour`
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    }
+  }
 });

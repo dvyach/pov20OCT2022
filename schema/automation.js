@@ -12,29 +12,25 @@ cube(`Automation`, {
   clientversion as clientversion
   from  ${db_prefix()}event.Events
   where scrip = 286 
-  and ${FILTER_PARAMS.Automation.autoTime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)
-    }
+  and ${FILTER_PARAMS.Automation.autoTime.filter((from, to) => `servertime >= UNIX_TIMESTAMP(${from}) AND servertime  <= UNIX_TIMESTAMP(${to})`)}
   `,
   //  and ${USER_CONTEXT.machine.filter('machine')}
   title: `Automation Analytics`,
   description: `Automation Analytics`,
-    joins: {
+  joins: {
     CA: {
       relationship: 'belongsTo',
-      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`,
+      sql: `${CA.site} = ${CUBE}.customer and ${CA.host} = ${CUBE}.machine`
     },
-
     GA: {
       relationship: 'belongsTo',
-      sql: `${GA.host} = ${CUBE}.machine`,
+      sql: `${GA.host} = ${CUBE}.machine`
     },
-
     combinedassets: {
       relationship: 'belongsTo',
-      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`,
-    },
-
-    },
+      sql: `${combinedassets.site} = ${CUBE}.customer and ${combinedassets.host} = ${CUBE}.machine`
+    }
+  },
   measures: {
     AutomationCount: {
       type: `count`,
@@ -107,21 +103,18 @@ cube(`Automation`, {
     },
     group: {
       case: {
-        when: [
-          {
-            sql: `${GA.name} is null`,
-            label: `Un-Grouped`,
-          },
-        ],
+        when: [{
+          sql: `${GA.name} is null`,
+          label: `Un-Grouped`
+        }],
         else: {
           label: {
-            sql: `${GA.name}`,
-          },
-        },
+            sql: `${GA.name}`
+          }
+        }
       },
-      type: `string`,
+      type: `string`
     },
-
     // OperatingSystem: {
     //   //   sql: `${CA}.os`,
     //   case: {
@@ -136,7 +129,6 @@ cube(`Automation`, {
     //     }
     //   },
     //   type: `string` // title: `Operating System`
-
     // },
     AutomationName: {
       type: `string`,
@@ -173,73 +165,52 @@ cube(`Automation`, {
       sql: `dtime` //  title: `Time`
 
     },
-
     // from dataid=5
     manufacturer: {
       sql: ` ${combinedassets.manufacturer}`,
       type: `string`,
-      title: `manufacturer`,
+      title: `manufacturer`
     },
-
     chassistype: {
       sql: ` ${combinedassets.chassistype}`,
       type: `string`,
-      title: `chassistype`,
+      title: `chassistype`
     },
-
     // from dataid=20
     registeredprocessor: {
       sql: ` ${combinedassets.registeredprocessor}`,
       type: `string`,
-      title: `registeredprocessor`,
+      title: `registeredprocessor`
     },
-
     processorfamily: {
       sql: ` ${combinedassets.processorfamily}`,
       type: `string`,
-      title: `processorfamily`,
+      title: `processorfamily`
     },
-
     processormanufacturer: {
       sql: ` ${combinedassets.processormanufacturer}`,
       type: `string`,
-      title: `processormanufacturer`,
+      title: `processormanufacturer`
     },
-
     // from dataid=16
     operatingsystem: {
       sql: ` ${combinedassets.operatingsystem}`,
       type: `string`,
-      title: `operatingsystem`,
+      title: `operatingsystem`
     },
-    
     // from dataid=39
     memorysize: {
       sql: ` ${combinedassets.memorysize}`,
       type: `string`,
-      title: `memorysize`,
-    },
-
+      title: `memorysize`
+    }
   },
   preAggregations: {
     autocountday: {
       type: `rollup`,
       measures: [Automation.AutomationCount, Automation.SuccessCount, Automation.TerminationCount],
-      dimensions: [
-        TypeOfRun, 
-        Site, 
-        group, 
-        AutomationName, 
-        Status, 
-        Version,
-        manufacturer,
-        chassistype,
-        registeredprocessor,
-        operatingsystem,
-        processorfamily,
-        processormanufacturer,
-        memorysize],
-      timeDimension:Automation.autoTime,
+      dimensions: [TypeOfRun, Site, group, AutomationName, Status, Version, manufacturer, chassistype, registeredprocessor, operatingsystem, processorfamily, processormanufacturer, memorysize],
+      timeDimension: Automation.autoTime,
       granularity: `day`,
       partitionGranularity: `month`,
       scheduledRefresh: true,
@@ -277,6 +248,25 @@ cube(`Automation`, {
     execduration: {
       measures: [Automation.ExecutionDuration, Automation.ExecutionTime, Automation.TerminatedAfter],
       dimensions: [Automation.AutomationName, Automation.TypeOfRun],
+      timeDimension: Automation.autoTime,
+      granularity: `day`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `900 seconds`,
+        incremental: true,
+        updateWindow: `6 hour`
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    automationcount: {
+      measures: [Automation.AutomationCount],
+      dimensions: [Automation.autoTime],
       timeDimension: Automation.autoTime,
       granularity: `day`,
       partitionGranularity: `month`,
