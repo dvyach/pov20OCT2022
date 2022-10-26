@@ -165,7 +165,7 @@ cube(`CPUMemoryUtilization`, {
     DramCount: {
       measures: [count],
       dimensions: [site, machine, group, username, clientver, ETime, manufacturer, chassistype, registeredprocessor, processorfamily, processormanufacturer, memorysize, operatingsystem],
-      granularity: `hour`,
+      granularity: `day`,
       partitionGranularity: `day`,
       timeDimension: ETime,
       scheduledRefresh: true,
@@ -186,7 +186,7 @@ cube(`CPUMemoryUtilization`, {
     DramAvg: {
       measures: [avgCPUpctgTotal, avgMEMpctgTotal, avgVirMEMpctgTotal, avgswapMEMpctgTotal],
       dimensions: [site, machine, group, username, clientver, ETime, manufacturer, chassistype, registeredprocessor, processorfamily, processormanufacturer, memorysize, operatingsystem],
-      granularity: `hour`,
+      granularity: `day`,
       partitionGranularity: `day`,
       timeDimension: ETime,
       scheduledRefresh: true,
@@ -207,7 +207,7 @@ cube(`CPUMemoryUtilization`, {
     Dramdistcount: {
       measures: [machinedistcount],
       dimensions: [site, machine, group, username, clientver, ETime, manufacturer, chassistype, registeredprocessor, processorfamily, processormanufacturer, memorysize, operatingsystem],
-      granularity: `hour`,
+      granularity: `day`,
       partitionGranularity: `day`,
       timeDimension: ETime,
       scheduledRefresh: true,
@@ -227,7 +227,7 @@ cube(`CPUMemoryUtilization`, {
     },
     measuresonly: {
       measures: [avgCPUpctgTotal, avgMEMpctgTotal, avgVirMEMpctgTotal, avgswapMEMpctgTotal, machinedistcount],
-      granularity: `hour`,
+      granularity: `day`,
       partitionGranularity: `day`,
       timeDimension: ETime,
       scheduledRefresh: true,
