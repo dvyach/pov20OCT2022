@@ -23,6 +23,7 @@ cube(`A16_OS_Details`, {
     aall.mId as machineid,
     aall.msite as location,
     aall.mhost as device,
+    ad.dataid,
     aall.maxSlatest as slatest,
     ad.value->>'$.ntproducttype' as 'producttype',
     ad.value->>'$.operatingsystem' as 'operatingsystem',

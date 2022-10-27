@@ -24,6 +24,7 @@ cube(`A56_Useraccount_Details`, {
     aall.msite as location, 
     aall.mhost as device, 
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value ->> '$.username' as username,
     ad.value ->> '$.useraccountname' as useraccountname, 
     ad.value ->> '$.useraccountdomain' as useraccountdomain, 

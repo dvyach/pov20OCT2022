@@ -24,6 +24,7 @@ cube(`A5_Chassis_Details`, {
     aall.msite as location,
     aall.mhost as device,
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value->>'$.chassislock' as 'lock',
     ad.value->>'$.chassisheight' as 'height',
     ad.value->>'$.chassisversion' as 'version',

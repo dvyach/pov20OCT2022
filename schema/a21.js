@@ -24,6 +24,7 @@ cube(`A21_System_Properties`, {
     aall.msite as location,
     aall.mhost as device,
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value->>'$.timezone' as 'timezone',
     ad.value->>'$.username' as 'username',
     ad.value->>'$.machinename' as 'machinename'

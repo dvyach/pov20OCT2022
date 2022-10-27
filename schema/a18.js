@@ -24,6 +24,7 @@ cube(`A18_Physical_Memory_Array`, {
     aall.msite as location,
     aall.mhost as device,
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value->>'$.maximumcapacityingb' as 'maximumcapacityingb'
   from
     (

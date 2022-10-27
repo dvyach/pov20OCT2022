@@ -24,6 +24,7 @@ cube(`A36_Installed_apps`, {
     aall.msite as location, 
     aall.mhost as device, 
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value ->> '$.installedsoftwarenames' as installedsoftwarenames, 
     ad.value ->> '$.version' as version, 
     ad.value ->> '$.installationdate' as installationdate 

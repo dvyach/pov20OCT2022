@@ -24,6 +24,7 @@ cube(`A8_User_Machine_Domain_Details`, {
     aall.msite as location,
     aall.mhost as device,
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value->>'$.host' as 'host',
     ad.value->>'$.domain' as 'domain'
   from

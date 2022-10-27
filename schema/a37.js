@@ -24,6 +24,7 @@ cube(`A37_System_Disk_Details`, {
     aall.msite as location, 
     aall.mhost as device, 
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value ->> '$.logicaldiskname' as logicaldiskname, 
     ad.value ->> '$.logicaldiskcompressed' as logicaldiskcompressed, 
     ad.value ->> '$.logicaldiskfilesystem' as logicaldiskfilesystem,

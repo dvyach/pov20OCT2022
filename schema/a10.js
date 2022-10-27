@@ -23,6 +23,7 @@ cube(`A10_System_Information`, {
     aall.msite as location,
     aall.mhost as device,
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value->>'$.biosdate' as 'biosdate',
     ad.value->>'$.biosvendor' as 'biosvendor',
     ad.value->>'$.biosversion' as 'biosver',

@@ -24,6 +24,7 @@ cube(`A13_Memory_Array_Mapped_Address`, {
     aall.msite as location,
     aall.mhost as device,
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value->>'$.arrayrangesize' as 'arrayrangesize',
     ad.value->>'$.partitionwidth' as 'partitionwidth',
     ad.value->>'$.arrayendingaddress' as 'arrayendingaddress',

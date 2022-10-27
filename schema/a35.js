@@ -24,6 +24,7 @@ cube(`A35_Installed_Patches`, {
     aall.msite as location,
     aall.mhost as device,
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value->>'$.installedon' as 'installedon',
     ad.value->>'$.descriptionname' as 'descriptionname',
     ad.value->>'$.kbid' as 'kbid'

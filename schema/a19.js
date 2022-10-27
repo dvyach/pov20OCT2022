@@ -24,6 +24,7 @@ cube(`A19_Portable_Battery_Details`, {
     aall.msite as location,
     aall.mhost as device,
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value->>'$.batterylocation' as 'batterylocation',
     ad.value->>'$.batterymanufacturer' as 'batterymanufacturer',
     ad.value->>'$.batteryname' as 'batteryname',

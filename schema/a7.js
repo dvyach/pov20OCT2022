@@ -24,6 +24,7 @@ cube(`A7_DNS_Server_Details`, {
     aall.msite as location,
     aall.mhost as device,
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value->>'$.dnsserver' as 'dnsserver'
   from
     (

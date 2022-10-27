@@ -24,6 +24,7 @@ cube(`A39_Memory_Information`, {
     aall.msite as location,
     aall.mhost as device,
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value->>'$.memorysize' as 'memorysize',
     ad.value->>'$.formfactor' as 'formfactor',
     ad.value->>'$.devicespeed' as 'devicespeed',

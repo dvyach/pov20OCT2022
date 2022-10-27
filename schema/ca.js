@@ -21,7 +21,7 @@ from ${db_prefix()}core.Census  as C join ${db_prefix()}core.Customers Cu on C.s
     // The Census level dimensions like site name, operating system, host are here
 
     cid: {
-      sql: `id`,
+      sql: `cid`,
       type: `number`,
       primaryKey: true,
       shown: true

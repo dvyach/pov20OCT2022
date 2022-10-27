@@ -24,6 +24,7 @@ cube(`A20_Processor_Details`, {
     aall.msite as location,
     aall.mhost as device,
     aall.maxSlatest as slatest,
+    ad.dataid,
     ad.value->>'$.registeredprocessor' as 'processortype',
     ad.value->>'$.processorfamily' as 'processorfamily',
     ad.value->>'$.processormanufacturer' as 'processormanufacturer',
