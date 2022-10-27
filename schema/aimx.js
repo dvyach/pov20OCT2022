@@ -590,25 +590,25 @@ cube(`AIMX`, {
       }
     },
 
-    aimx11: {
-      measures: [
-        AIMX.ActualScore
-      ],
-      timeDimension: AIMX.dtime,
-      granularity: `hour`,
-      partitionGranularity: `day`,
-      scheduledRefresh: true,
-      refreshKey: {
-        every: `3600 seconds`,
-        incremental: true
-      },
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
-    },
+    // aimx11: {
+    //   measures: [
+    //     AIMX.ActualScore
+    //   ],
+    //   timeDimension: AIMX.dtime,
+    //   granularity: `hour`,
+    //   partitionGranularity: `day`,
+    //   scheduledRefresh: true,
+    //   refreshKey: {
+    //     every: `3600 seconds`,
+    //     incremental: true
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // },
     aimx12: {
       measures: [
         AIMX.machcount,
