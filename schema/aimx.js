@@ -201,155 +201,158 @@ cube(`AIMX`, {
     }
   },
   preAggregations: {
-    AIMXactualscore: {
-      measures: [ActualScore],
-      timeDimension: dtime,
-      granularity: `day`,
-      partitionGranularity: `month`,
-      scheduledRefresh: true,
-      refreshKey: {
-        every: `3600 seconds`,
-        incremental: true
-      },
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
-    },
-    AIMXcatScore: {
-      // measures: [ActualScore, machcount],
-      measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
-      dimensions: [Category],
-      timeDimension: dtime,
-      granularity: `day`,
-      partitionGranularity: `month`,
-      scheduledRefresh: true,
-      refreshKey: {
-        every: `3600 seconds`,
-        incremental: true
-      },
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
-    },
-    AIMXsubcatScore: {
-      // measures: [ActualScore, machcount],
-      measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
-      dimensions: [subcategory],
-      timeDimension: dtime,
-      granularity: `day`,
-      partitionGranularity: `month`,
-      scheduledRefresh: true,
-      refreshKey: {
-        every: `3600 seconds`,
-        incremental: true
-      },
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
-    },
-    AIMXMnameScore: {
-      //  measures: [ActualScore, machcount],
-      measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
-      dimensions: [MetricName],
-      timeDimension: dtime,
-      granularity: `day`,
-      partitionGranularity: `month`,
-      scheduledRefresh: true,
-      refreshKey: {
-        every: `3600 seconds`,
-        incremental: true
-      },
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
-    },
-    AIMXMdescScore: {
-      // measures: [ActualScore, machcount],
-      measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
-      dimensions: [MetricDesc],
-      timeDimension: dtime,
-      granularity: `day`,
-      partitionGranularity: `month`,
-      scheduledRefresh: true,
-      refreshKey: {
-        every: `3600 seconds`,
-        incremental: true
-      },
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
-    },
-    AIMXsite: {
-      // measures: [ActualScore, machcount],
-      measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
-      dimensions: [site],
-      timeDimension: dtime,
-      granularity: `day`,
-      partitionGranularity: `month`,
-      scheduledRefresh: true,
-      refreshKey: {
-        every: `3600 seconds`,
-        incremental: true
-      },
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
-    },
-    AIMXgroup: {
-      // measures: [ActualScore, machcount],
-      measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
-      dimensions: [group],
-      timeDimension: dtime,
-      granularity: `day`,
-      partitionGranularity: `month`,
-      scheduledRefresh: true,
-      refreshKey: {
-        every: `3600 seconds`,
-        incremental: true
-      },
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
-    },
-    AIMXcatsubcat: {
-      measures: [ActualScore],
-      dimensions: [Category, subcategory],
-      timeDimension: dtime,
-      granularity: `day`,
-      partitionGranularity: `month`,
-      scheduledRefresh: true,
-      refreshKey: {
-        every: `3600 seconds`,
-        incremental: true
-      },
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
-    } // main: {
+    // ---->>Preagg start hide from 
+    // AIMXactualscore: {
+    //   measures: [ActualScore],
+    //   timeDimension: dtime,
+    //   granularity: `day`,
+    //   partitionGranularity: `month`,
+    //   scheduledRefresh: true,
+    //   refreshKey: {
+    //     every: `3600 seconds`,
+    //     incremental: true
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // },
+    // AIMXcatScore: {
+    //   // measures: [ActualScore, machcount],
+    //   measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+    //   dimensions: [Category],
+    //   timeDimension: dtime,
+    //   granularity: `day`,
+    //   partitionGranularity: `month`,
+    //   scheduledRefresh: true,
+    //   refreshKey: {
+    //     every: `3600 seconds`,
+    //     incremental: true
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // },
+    // AIMXsubcatScore: {
+    //   // measures: [ActualScore, machcount],
+    //   measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+    //   dimensions: [subcategory],
+    //   timeDimension: dtime,
+    //   granularity: `day`,
+    //   partitionGranularity: `month`,
+    //   scheduledRefresh: true,
+    //   refreshKey: {
+    //     every: `3600 seconds`,
+    //     incremental: true
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // },
+    // AIMXMnameScore: {
+    //   //  measures: [ActualScore, machcount],
+    //   measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+    //   dimensions: [MetricName],
+    //   timeDimension: dtime,
+    //   granularity: `day`,
+    //   partitionGranularity: `month`,
+    //   scheduledRefresh: true,
+    //   refreshKey: {
+    //     every: `3600 seconds`,
+    //     incremental: true
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // },
+    // AIMXMdescScore: {
+    //   // measures: [ActualScore, machcount],
+    //   measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+    //   dimensions: [MetricDesc],
+    //   timeDimension: dtime,
+    //   granularity: `day`,
+    //   partitionGranularity: `month`,
+    //   scheduledRefresh: true,
+    //   refreshKey: {
+    //     every: `3600 seconds`,
+    //     incremental: true
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // },
+    // AIMXsite: {
+    //   // measures: [ActualScore, machcount],
+    //   measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+    //   dimensions: [site],
+    //   timeDimension: dtime,
+    //   granularity: `day`,
+    //   partitionGranularity: `month`,
+    //   scheduledRefresh: true,
+    //   refreshKey: {
+    //     every: `3600 seconds`,
+    //     incremental: true
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // },
+    // AIMXgroup: {
+    //   // measures: [ActualScore, machcount],
+    //   measures: [ActualScore, machcount, machcountavg, machcountbd, machcountgood],
+    //   dimensions: [group],
+    //   timeDimension: dtime,
+    //   granularity: `day`,
+    //   partitionGranularity: `month`,
+    //   scheduledRefresh: true,
+    //   refreshKey: {
+    //     every: `3600 seconds`,
+    //     incremental: true
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // },
+    // AIMXcatsubcat: {
+    //   measures: [ActualScore],
+    //   dimensions: [Category, subcategory],
+    //   timeDimension: dtime,
+    //   granularity: `day`,
+    //   partitionGranularity: `month`,
+    //   scheduledRefresh: true,
+    //   refreshKey: {
+    //     every: `3600 seconds`,
+    //     incremental: true
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // }
+    // ---->>Preagg hidden till here
+    // main: {
     //   measures: [AIMX.machcountbd, AIMX.machcountgood, AIMX.machcountavg],
     //   dimensions: [AIMX.Category],
     //   timeDimension: AIMX.dtime,
@@ -367,7 +370,6 @@ cube(`AIMX`, {
     //     sql: `SELECT NOW()`
     //   }
     // }
-    ,
     aimx1: {
       measures: [AIMX.Metric],
       dimensions: [AIMX.Category, AIMX.MetricName],
@@ -566,6 +568,70 @@ cube(`AIMX`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`
       }
+    },
+    aimx10: {
+      measures: [
+        AIMX.ActualScore,
+        AIMX.machcount
+      ],
+      timeDimension: AIMX.dtime,
+      granularity: `day`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+
+    aimx11: {
+      measures: [
+        AIMX.ActualScore
+      ],
+      timeDimension: AIMX.dtime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    aimx12: {
+      measures: [
+        AIMX.machcount,
+        AIMX.ActualScore
+      ],
+      timeDimension: AIMX.dtime,
+      granularity: `day`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
     }
+
+
+
+
   }
 });
