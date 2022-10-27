@@ -628,7 +628,97 @@ cube(`AIMX`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`
       }
-    }
+    },
+    aimx13: {
+      measures: [
+        AIMX.ActualScore
+      ],
+      dimensions: [
+        AIMX.site
+      ],
+      timeDimension: AIMX.dtime,
+      granularity: `hour`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    aimx14: {
+      measures: [
+        AIMX.ActualScore,
+        AIMX.machcount
+      ],
+      dimensions: [
+        AIMX.Category
+      ],
+      timeDimension: AIMX.dtime,
+      granularity: `day`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    aimx15: {
+      measures: [
+        AIMX.ActualScore,
+        AIMX.machcount
+      ],
+      dimensions: [
+        AIMX.site
+      ],
+      timeDimension: AIMX.dtime,
+      granularity: `day`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      },
+    },
+    aimx16: {
+  measures: [
+    AIMX.ActualScore
+  ],
+  dimensions: [
+    AIMX.site
+  ],
+  timeDimension: AIMX.dtime,
+  granularity: `hour`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      },
+}
 
 
 

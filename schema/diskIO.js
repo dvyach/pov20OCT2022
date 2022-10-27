@@ -193,7 +193,7 @@ cube(`DiskIOPerformance`, {
     },
     MDAvg: {
       type: `rollup`,
-      measures: [dioperTotal, percentbusytimeTotal, readpersecondTotal, writespersecondTotal, averagequeuelengthTotal, ],
+      measures: [dioperTotal, percentbusytimeTotal, readpersecondTotal, writespersecondTotal, averagequeuelengthTotal,],
       dimensions: [site, group, clientver, drive, DiskIOPerformance.manufacturer, DiskIOPerformance.chassistype, DiskIOPerformance.registeredprocessor, DiskIOPerformance.processorfamily, DiskIOPerformance.processormanufacturer, DiskIOPerformance.memorysize, DiskIOPerformance.operatingsystem],
       timeDimension: ETime,
       granularity: `day`,
@@ -212,7 +212,10 @@ cube(`DiskIOPerformance`, {
       }
     },
     measuresonly: {
-      measures: [DiskIOPerformance.percentbusytimeTotal, DiskIOPerformance.machinedistcount,DiskIOPerformance.readpersecondTotal, DiskIOPerformance.writespersecondTotal, DiskIOPerformance.averagequeuelengthTotal,],
+      measures: [DiskIOPerformance.percentbusytimeTotal, DiskIOPerformance.machinedistcount, DiskIOPerformance.readpersecondTotal, DiskIOPerformance.writespersecondTotal, DiskIOPerformance.averagequeuelengthTotal,],
+      dimensions: [
+        DiskIOPerformance.site
+      ],
       timeDimension: DiskIOPerformance.ETime,
       granularity: `hour`,
       partitionGranularity: `day`,
@@ -228,6 +231,7 @@ cube(`DiskIOPerformance`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`
       }
-    }
+    },
+
   }
 });
