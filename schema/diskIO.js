@@ -241,7 +241,6 @@ cube(`DiskIOPerformance`, {
       ],
       timeDimension: DiskIOPerformance.ETime,
       granularity: `second`,
-
       partitionGranularity: `day`,
       scheduledRefresh: true,
       refreshKey: {
