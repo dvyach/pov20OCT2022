@@ -35,7 +35,7 @@ cube(`DiskUsage`, {
       type: `count`,
 
     },
-    machinedistcount:{
+    machinedistcount: {
       type: `countDistinct`,
       sql: `machine`,
       title: `Distinct Count`
@@ -191,7 +191,7 @@ cube(`DiskUsage`, {
       },
     },
 
-  DUdistinct: {
+    DUdistinct: {
       type: `rollup`,
       // useOriginalSqlPreAggregations: true,
       measures: [machinedistcount],
@@ -255,11 +255,34 @@ cube(`DiskUsage`, {
         sql: `SELECT NOW()`,
       },
     },
+    diskusage1: {
+      measures: [
+        DiskUsage.dusedperTotal
+      ],
+      dimensions: [
+        DiskUsage.site
+      ],
+      timeDimension: DiskUsage.ETime,
+      granularity: `second`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour`,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+    },
     measuresonly: {
-    measures: [
-    DiskUsage.dusedperTotal,
-    DiskUsage.machinedistcount
-  ],
+      measures: [
+        DiskUsage.dusedperTotal,
+        DiskUsage.machinedistcount
+      ],
       //   dimensions: [drive,
       //   site,
       //   group,

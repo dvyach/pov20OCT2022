@@ -90,11 +90,6 @@ cube(`A8_User_Machine_Domain_Details`, {
       title: `Site`,
     },
 
-    group: {
-      sql: `grp`,
-      type: `string`,
-      title: `Group`,
-    },
 
     Device: {
       sql: `device`,

@@ -405,7 +405,30 @@ cube(`ProcessCPU`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`,
       },
-    }
+    }, 
+    pcpu10: {
+  measures: [
+    ProcessCPU.ProcessCPUavg
+  ],
+  dimensions: [
+    ProcessCPU.ProcessName,
+    ProcessCPU.site
+  ],
+  timeDimension: ProcessCPU.dtime,
+  granularity: `day`,
+  partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+}
 
 
 
