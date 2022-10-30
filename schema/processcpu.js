@@ -393,6 +393,7 @@ cube(`ProcessCPU`, {
       ],
       timeDimension: ProcessCPU.dtime,
       granularity: `second`,
+      partitionGranularity: `day`,
       scheduledRefresh: true,
       refreshKey: {
         every: `3600 seconds`,
