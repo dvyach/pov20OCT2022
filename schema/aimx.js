@@ -667,7 +667,7 @@ cube(`AIMX`, {
         AIMX.machcount
       ],
       dimensions: [
-        AIMX.Category ,  AIMX.site
+        AIMX.Category, AIMX.site
       ],
       timeDimension: AIMX.dtime,
       granularity: `day`,
@@ -712,10 +712,10 @@ cube(`AIMX`, {
         AIMX.ActualScore
       ],
       dimensions: [
-        AIMX.site
+        AIMX.Category, AIMX.site
       ],
       timeDimension: AIMX.dtime,
-      granularity: `hour`,
+      granularity: `day`,
       partitionGranularity: `month`,
       scheduledRefresh: true,
       refreshKey: {
@@ -734,7 +734,7 @@ cube(`AIMX`, {
         AIMX.ActualScore
       ],
       dimensions: [
-        AIMX.Category ,  AIMX.site
+        AIMX.Category, AIMX.site
       ],
       timeDimension: AIMX.dtime,
       granularity: `day`,
@@ -750,7 +750,7 @@ cube(`AIMX`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`
       },
-    }
+    },
 
 
 

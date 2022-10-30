@@ -32,13 +32,13 @@ cube(`ProcessCPU`, {
     // ProcessName is not null to be used in filter when viz is created
     count: {
       type: `count`,
-   //   shown: false,
+      //   shown: false,
     },
 
     ProcessCPUavg: {
       type: `avg`,
       sql: `ProcessCPU`,
-   //   shown: false,
+      //   shown: false,
     },
 
     // use avergae instead of SQL calculation
@@ -200,5 +200,26 @@ cube(`ProcessCPU`, {
         sql: `SELECT NOW()`,
       },
     },
+    pcpu1: {
+      measures: [
+        ProcessCPU.ProcessCPUavg
+      ],
+      dimensions: [
+        ProcessCPU.ProcessName, ProcessCPU.site
+      ],
+      timeDimension: ProcessCPU.dtime,
+      granularity: `day`, partitionGranularity: `day`,
+      scheduledRefresh: preparePreagregations(),
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+    }
   },
 });
