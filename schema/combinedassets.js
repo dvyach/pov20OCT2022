@@ -38,12 +38,6 @@ cube(`combinedassets`, {
       shown: true
     },
 
-    dataid: {
-      sql: `dataid`,
-      type: `number`,
-      title: `dataid`,
-    },
-
     clatest: {
       sql: `clatest`,
       type: `number`,
