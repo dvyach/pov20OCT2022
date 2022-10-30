@@ -375,14 +375,7 @@ cube(`AIMX`, {
       scheduledRefresh: true,
       refreshKey: {
         every: `1 day`,
-        incremental: true
       }, 
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
      },
 
     aimx1: {
