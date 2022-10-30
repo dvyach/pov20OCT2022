@@ -232,6 +232,30 @@ cube(`DiskIOPerformance`, {
         sql: `SELECT NOW()`
       }
     },
+    diskio1: {
+      measures: [
+        DiskIOPerformance.percentbusytimeTotal
+      ],
+      dimensions: [
+        DiskIOPerformance.site
+      ],
+      timeDimension: DiskIOPerformance.ETime,
+      granularity: `second`,
+
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour`
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    }
 
   }
 });
