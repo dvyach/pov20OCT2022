@@ -116,30 +116,37 @@ from ${db_prefix()}core.Census  as C join ${db_prefix()}core.Customers Cu on C.s
     },
   },
   preAggregations: {
-    census1: {
-      measures: [
-        Census.count
-      ],
-      dimensions: [
-        Census.site
-      ],
-      timeDimension: Census.ReportingTime,
-      granularity: `day`,
-      partitionGranularity: `day`,
+     censsuoriginal: {
+      type: `originalSql`,
       scheduledRefresh: true,
-      type: `rollup`,
       refreshKey: {
-        every: `1800 seconds`,
-        incremental: true,
-        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+        every: `1 day`,
+      }, 
+     }
+    // census1: {
+    //   measures: [
+    //     Census.count
+    //   ],
+    //   dimensions: [
+    //     Census.site
+    //   ],
+    //   timeDimension: Census.ReportingTime,
+    //   granularity: `day`,
+    //   partitionGranularity: `day`,
+    //   scheduledRefresh: true,
+    //   type: `rollup`,
+    //   refreshKey: {
+    //     every: `1800 seconds`,
+    //     incremental: true,
+    //     updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
 
-      },
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
-    }
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // }
   },
 });
