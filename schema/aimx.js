@@ -603,7 +603,7 @@ cube(`AIMX`, {
       ],
       timeDimension: AIMX.dtime,
       granularity: `hour`,
-      partitionGranularity: `day`,
+      partitionGranularity: `month`,
       scheduledRefresh: true,
       refreshKey: {
         every: `3600 seconds`,
