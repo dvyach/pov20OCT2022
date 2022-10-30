@@ -32,13 +32,13 @@ cube(`ProcessMEM`, {
     // ProcessName is not null to be used in filter when viz is created
     count: {
       type: `count`,
-    //  shown: false,
+      //  shown: false,
     },
 
     ProcessMEMavg: {
       type: `avg`,
       sql: `ProcessMEM`,
-   //   shown: false,
+      //   shown: false,
     },
 
     // use avergae instead of SQL calculation
@@ -200,5 +200,213 @@ cube(`ProcessMEM`, {
         sql: `SELECT NOW()`,
       },
     },
+    pmem1: {
+      measures: [
+        ProcessMEM.ProcessMEMavg
+      ],
+      dimensions: [
+        ProcessMEM.chassistype,
+        ProcessMEM.site
+      ],
+      timeDimension: ProcessMEM.dtime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    Pmem2: {
+      measures: [
+        ProcessMEM.ProcessMEMavg
+      ],
+      dimensions: [
+        ProcessMEM.manufacturer,
+        ProcessMEM.site
+      ],
+      timeDimension: ProcessMEM.dtime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    Pmem3: {
+      measures: [
+        ProcessMEM.ProcessMEMavg
+      ],
+      dimensions: [
+        ProcessMEM.registeredprocessor,
+        ProcessMEM.site
+      ],
+      timeDimension: ProcessMEM.dtime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    Pmem4: {
+      measures: [
+        ProcessMEM.ProcessMEMavg
+      ],
+      dimensions: [
+        ProcessMEM.processorfamily,
+        ProcessMEM.site
+      ],
+      timeDimension: ProcessMEM.dtime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    Pmem5: {
+      measures: [
+        ProcessMEM.ProcessMEMavg
+      ],
+      dimensions: [
+        ProcessMEM.processormanufacturer,
+        ProcessMEM.site
+      ],
+      timeDimension: ProcessMEM.dtime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    Pmem6: {
+      measures: [
+        ProcessMEM.ProcessMEMavg
+      ],
+      dimensions: [
+        ProcessMEM.memorysize,
+        ProcessMEM.site
+      ],
+      timeDimension: ProcessMEM.dtime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    Pmem7: {
+      measures: [
+        ProcessMEM.ProcessMEMavg
+      ],
+      dimensions: [
+        ProcessMEM.operatingsystem,
+        ProcessMEM.site
+      ],
+      timeDimension: ProcessMEM.dtime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+
+    Pmem8: {
+      measures: [
+        ProcessMEM.ProcessMEMavg
+      ],
+      dimensions: [
+        ProcessMEM.site
+      ],
+      timeDimension: ProcessMEM.dtime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    }
   },
 });

@@ -230,7 +230,7 @@ cube(`CPUMemoryUtilization`, {
       dimensions: [
         CPUMemoryUtilization.site
       ],
-      granularity: `day`,
+      granularity: `second`,
       partitionGranularity: `day`,
       timeDimension: ETime,
       scheduledRefresh: true,
@@ -257,7 +257,7 @@ cube(`CPUMemoryUtilization`, {
         CPUMemoryUtilization.site
       ],
       timeDimension: CPUMemoryUtilization.ETime,
-      granularity: `day`,
+      granularity: `hour`,
       partitionGranularity: `day`,
       scheduledRefresh: true,
       type: `rollup`,
@@ -283,7 +283,7 @@ cube(`CPUMemoryUtilization`, {
         CPUMemoryUtilization.site
       ],
       timeDimension: CPUMemoryUtilization.ETime,
-      granularity: `day`,
+      granularity: `hour`,
       partitionGranularity: `day`,
       scheduledRefresh: true,
       type: `rollup`,
@@ -309,7 +309,7 @@ cube(`CPUMemoryUtilization`, {
         CPUMemoryUtilization.site
       ],
       timeDimension: CPUMemoryUtilization.ETime,
-      granularity: `day`,
+      granularity: `hour`,
       partitionGranularity: `day`,
       scheduledRefresh: true,
       type: `rollup`,
@@ -335,7 +335,7 @@ cube(`CPUMemoryUtilization`, {
         CPUMemoryUtilization.site
       ],
       timeDimension: CPUMemoryUtilization.ETime,
-      granularity: `day`,
+      granularity: `hour`,
       partitionGranularity: `day`,
       scheduledRefresh: true,
       type: `rollup`,
@@ -361,7 +361,7 @@ cube(`CPUMemoryUtilization`, {
         CPUMemoryUtilization.site
       ],
       timeDimension: CPUMemoryUtilization.ETime,
-      granularity: `day`,
+      granularity: `hour`,
       partitionGranularity: `day`,
       scheduledRefresh: true,
       type: `rollup`,
@@ -387,7 +387,7 @@ cube(`CPUMemoryUtilization`, {
         CPUMemoryUtilization.site
       ],
       timeDimension: CPUMemoryUtilization.ETime,
-      granularity: `day`,
+      granularity: `hour`,
       partitionGranularity: `day`,
       scheduledRefresh: true,
       type: `rollup`,
@@ -413,7 +413,7 @@ cube(`CPUMemoryUtilization`, {
         CPUMemoryUtilization.site
       ],
       timeDimension: CPUMemoryUtilization.ETime,
-      granularity: `day`,
+      granularity: `hour`,
       partitionGranularity: `day`,
       scheduledRefresh: true,
       type: `rollup`,
@@ -438,7 +438,22 @@ cube(`CPUMemoryUtilization`, {
         DiskIOPerformance.site
       ],
       timeDimension: DiskIOPerformance.ETime,
-      granularity: `second`
+      granularity: `second`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
     },
     cpumem9: {
       measures: [
@@ -448,8 +463,74 @@ cube(`CPUMemoryUtilization`, {
         CPUMemoryUtilization.site
       ],
       timeDimension: CPUMemoryUtilization.ETime,
-      granularity: `second`
+      granularity: `second`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    cpumem10: {
+      measures: [
+        CPUMemoryUtilization.avgMEMpctgTotal
+      ],
+      dimensions: [
+        CPUMemoryUtilization.site
+      ],
+      timeDimension: CPUMemoryUtilization.ETime,
+      granularity: `second`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    cpumem11: {
+      measures: [
+        CPUMemoryUtilization.avgVirMEMpctgTotal
+      ],
+      dimensions: [
+        CPUMemoryUtilization.site
+      ],
+      timeDimension: CPUMemoryUtilization.ETime,
+      granularity: `second`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
     }
+
 
 
 

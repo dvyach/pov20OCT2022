@@ -533,7 +533,7 @@ cube(`AIMX`, {
         AIMX.subcategory, AIMX.site
       ],
       timeDimension: AIMX.dtime,
-      granularity: `hour`,
+      granularity: `second`,
       partitionGranularity: `month`,
       scheduledRefresh: true,
       refreshKey: {
@@ -775,7 +775,7 @@ cube(`AIMX`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`
       },
-    }
+    }, 
 
 
 
