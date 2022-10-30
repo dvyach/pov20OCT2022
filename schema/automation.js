@@ -335,14 +335,14 @@ cube(`Automation`, {
     },
     automation3: {
       measures: [
-        DiskIOPerformance.percentbusytimeTotal
+        Automation.AutomationCount
       ],
       dimensions: [
-        DiskIOPerformance.site
+        Automation.TypeOfRun,
+        Automation.autoTime
       ],
-      timeDimension: DiskIOPerformance.ETime,
+      timeDimension: Automation.autoTime,
       granularity: `second`,
-
       partitionGranularity: `month`,
       scheduledRefresh: true,
       refreshKey: {

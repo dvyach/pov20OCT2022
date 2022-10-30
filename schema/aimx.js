@@ -775,8 +775,30 @@ cube(`AIMX`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`
       },
-    }, 
-
+    },
+    aimx19: {
+      measures: [
+        AIMX.machcount,
+        AIMX.count
+      ],
+      dimensions: [
+        AIMX.Category, AIMX.site
+      ],
+      timeDimension: AIMX.dtime,
+      granularity: `second`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      },
+    }
 
 
 

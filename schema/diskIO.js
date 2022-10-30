@@ -255,7 +255,8 @@ cube(`DiskIOPerformance`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`
       }
-    }
+    },
+    
 
   }
 });
