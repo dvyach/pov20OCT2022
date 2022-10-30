@@ -372,7 +372,7 @@ cube(`AIMX`, {
     // }
     aimx1: {
       measures: [AIMX.Metric],
-      dimensions: [AIMX.Category, AIMX.MetricName],
+      dimensions: [AIMX.Category, AIMX.MetricName, AIMX.site],
       timeDimension: AIMX.dtime,
       granularity: `hour`,
       partitionGranularity: `month`,
@@ -393,7 +393,7 @@ cube(`AIMX`, {
         AIMX.machcountavg
       ],
       dimensions: [
-        AIMX.Category
+        AIMX.Category, AIMX.site
       ],
       timeDimension: AIMX.dtime,
       granularity: `day`,
@@ -416,7 +416,7 @@ cube(`AIMX`, {
         AIMX.ActualScore
       ],
       dimensions: [
-        AIMX.Category
+        AIMX.Category, AIMX.site
       ],
       timeDimension: AIMX.dtime,
       granularity: `day`,
@@ -433,34 +433,35 @@ cube(`AIMX`, {
         sql: `SELECT NOW()`
       }
     },
-    aimx4: {
-      measures: [
-        AIMX.ActualScore
-      ],
-      dimensions: [
-        AIMX.Category
-      ],
-      timeDimension: AIMX.dtime,
-      granularity: `day`,
-      partitionGranularity: `month`,
-      scheduledRefresh: true,
-      refreshKey: {
-        every: `3600 seconds`,
-        incremental: true
-      },
-      buildRangeStart: {
-        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-      },
-      buildRangeEnd: {
-        sql: `SELECT NOW()`
-      }
-    },
+    // aimx4: {
+    //   measures: [
+    //     AIMX.ActualScore
+    //   ],
+    //   dimensions: [
+    //     AIMX.Category ,  AIMX.site
+    //   ],
+    //   timeDimension: AIMX.dtime,
+    //   granularity: `day`,
+    //   partitionGranularity: `month`,
+    //   scheduledRefresh: true,
+    //   refreshKey: {
+    //     every: `3600 seconds`,
+    //     incremental: true
+    //   },
+    //   buildRangeStart: {
+    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+    //   },
+    //   buildRangeEnd: {
+    //     sql: `SELECT NOW()`
+    //   }
+    // },
     aimx5: {
+      type: `rollup`,
       measures: [
         AIMX.ActualScore
       ],
       dimensions: [
-        AIMX.Category
+        AIMX.Category, AIMX.site
       ],
       timeDimension: AIMX.dtime,
       granularity: `hour`,
@@ -483,7 +484,7 @@ cube(`AIMX`, {
         AIMX.machcount
       ],
       dimensions: [
-        AIMX.Category
+        AIMX.Category, AIMX.site
       ],
       timeDimension: AIMX.dtime,
       granularity: `day`,
@@ -506,7 +507,7 @@ cube(`AIMX`, {
       ],
       dimensions: [
         AIMX.Category,
-        AIMX.MetricName
+        AIMX.MetricName, AIMX.site
       ],
       timeDimension: AIMX.dtime,
       granularity: `hour`,
@@ -529,7 +530,7 @@ cube(`AIMX`, {
       ],
       dimensions: [
         AIMX.Category,
-        AIMX.subcategory
+        AIMX.subcategory, AIMX.site
       ],
       timeDimension: AIMX.dtime,
       granularity: `hour`,
@@ -552,7 +553,7 @@ cube(`AIMX`, {
         AIMX.ActualScore
       ],
       dimensions: [
-        AIMX.Category
+        AIMX.Category, AIMX.site
       ],
       timeDimension: AIMX.dtime,
       granularity: `day`,
@@ -574,6 +575,9 @@ cube(`AIMX`, {
         AIMX.ActualScore,
         AIMX.machcount
       ],
+      dimensions: [
+        AIMX.site
+      ],
       timeDimension: AIMX.dtime,
       granularity: `day`,
       partitionGranularity: `month`,
@@ -590,29 +594,35 @@ cube(`AIMX`, {
       }
     },
 
-    // aimx11: {
-    //   measures: [
-    //     AIMX.ActualScore
-    //   ],
-    //   timeDimension: AIMX.dtime,
-    //   granularity: `hour`,
-    //   partitionGranularity: `day`,
-    //   scheduledRefresh: true,
-    //   refreshKey: {
-    //     every: `3600 seconds`,
-    //     incremental: true
-    //   },
-    //   buildRangeStart: {
-    //     sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
-    //   },
-    //   buildRangeEnd: {
-    //     sql: `SELECT NOW()`
-    //   }
-    // },
+    aimx11: {
+      measures: [
+        AIMX.ActualScore
+      ],
+      dimensions: [
+        AIMX.site
+      ],
+      timeDimension: AIMX.dtime,
+      granularity: `hour`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
     aimx12: {
       measures: [
         AIMX.machcount,
         AIMX.ActualScore
+      ],
+      dimensions: [
+        AIMX.site
       ],
       timeDimension: AIMX.dtime,
       granularity: `day`,
@@ -657,7 +667,7 @@ cube(`AIMX`, {
         AIMX.machcount
       ],
       dimensions: [
-        AIMX.Category
+        AIMX.Category ,  AIMX.site
       ],
       timeDimension: AIMX.dtime,
       granularity: `day`,
@@ -698,14 +708,14 @@ cube(`AIMX`, {
       },
     },
     aimx16: {
-  measures: [
-    AIMX.ActualScore
-  ],
-  dimensions: [
-    AIMX.site
-  ],
-  timeDimension: AIMX.dtime,
-  granularity: `hour`,
+      measures: [
+        AIMX.ActualScore
+      ],
+      dimensions: [
+        AIMX.site
+      ],
+      timeDimension: AIMX.dtime,
+      granularity: `hour`,
       partitionGranularity: `month`,
       scheduledRefresh: true,
       refreshKey: {
@@ -718,7 +728,29 @@ cube(`AIMX`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`
       },
-}
+    },
+    aimx17: {
+      measures: [
+        AIMX.ActualScore
+      ],
+      dimensions: [
+        AIMX.Category ,  AIMX.site
+      ],
+      timeDimension: AIMX.dtime,
+      granularity: `day`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      },
+    }
 
 
 

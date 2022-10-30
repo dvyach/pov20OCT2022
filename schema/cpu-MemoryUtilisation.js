@@ -227,6 +227,9 @@ cube(`CPUMemoryUtilization`, {
     },
     measuresonly: {
       measures: [avgCPUpctgTotal, avgMEMpctgTotal, avgVirMEMpctgTotal, avgswapMEMpctgTotal, machinedistcount],
+      dimensions: [
+        CPUMemoryUtilization.site
+      ],
       granularity: `day`,
       partitionGranularity: `day`,
       timeDimension: ETime,
