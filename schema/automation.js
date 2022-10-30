@@ -282,6 +282,80 @@ cube(`Automation`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`
       }
+    },
+    automation1: {
+      measures: [
+        Automation.AutomationCount
+      ],
+      dimensions: [
+        Automation.Site,
+        Automation.autoTime
+      ],
+      timeDimension: Automation.autoTime,
+      granularity: `day`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `900 seconds`,
+        incremental: true,
+        updateWindow: `6 hour`
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    automeation2: {
+      measures: [
+        Automation.DeviceCount,
+        Automation.AutomationCount
+      ],
+      dimensions: [
+        Automation.AutomationName,
+        Automation.Site,
+        Automation.TypeOfRun
+      ],
+      timeDimension: Automation.autoTime,
+      granularity: `second`,
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `900 seconds`,
+        incremental: true,
+        updateWindow: `6 hour`
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    automation3: {
+      measures: [
+        DiskIOPerformance.percentbusytimeTotal
+      ],
+      dimensions: [
+        DiskIOPerformance.site
+      ],
+      timeDimension: DiskIOPerformance.ETime,
+      granularity: `second`,
+
+      partitionGranularity: `month`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `900 seconds`,
+        incremental: true,
+        updateWindow: `6 hour`
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
     }
   }
 });

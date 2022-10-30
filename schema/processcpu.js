@@ -188,7 +188,7 @@ cube(`ProcessCPU`, {
       timeDimension: dtime,
       granularity: `hour`,
       partitionGranularity: `day`,
-      scheduledRefresh: preparePreagregations(),
+      scheduledRefresh: true,
       refreshKey: {
         every: `3600 seconds`,
         incremental: true,
@@ -208,8 +208,9 @@ cube(`ProcessCPU`, {
         ProcessCPU.ProcessName, ProcessCPU.site
       ],
       timeDimension: ProcessCPU.dtime,
-      granularity: `day`, partitionGranularity: `day`,
-      scheduledRefresh: preparePreagregations(),
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
       refreshKey: {
         every: `3600 seconds`,
         incremental: true,
@@ -220,6 +221,171 @@ cube(`ProcessCPU`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`,
       },
-    }
+    },
+    pcpu2: {
+      measures: [
+        ProcessCPU.ProcessCPUavg
+      ],
+      dimensions: [
+        ProcessCPU.chassistype,
+        ProcessCPU.site,
+      ],
+      timeDimension: ProcessCPU.dtime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+    },
+    pcpu3: {
+      measures: [
+        ProcessCPU.ProcessCPUavg
+      ],
+      dimensions: [
+        ProcessCPU.manufacturer,
+        ProcessCPU.site,
+      ],
+      timeDimension: ProcessCPU.dtime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+    },
+    pcpu4: {
+      measures: [
+        ProcessCPU.ProcessCPUavg
+      ],
+      dimensions: [
+        ProcessCPU.registeredprocessor,
+        ProcessCPU.site,
+      ],
+      timeDimension: ProcessCPU.dtime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+    },
+    pcpu5: {
+      measures: [
+        ProcessCPU.ProcessCPUavg
+      ],
+      dimensions: [
+        ProcessCPU.processorfamily,
+        ProcessCPU.site,
+      ],
+      timeDimension: ProcessCPU.dtime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+    },
+    pcpu6: {
+      measures: [
+        ProcessCPU.ProcessCPUavg
+      ],
+      dimensions: [
+        ProcessCPU.processormanufacturer,
+        ProcessCPU.site,
+      ],
+      timeDimension: ProcessCPU.dtime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+    },
+    pcpu7: {
+      measures: [
+        ProcessCPU.ProcessCPUavg
+      ],
+      dimensions: [
+        ProcessCPU.memorysize,
+        ProcessCPU.site,
+      ],
+      timeDimension: ProcessCPU.dtime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+    },
+
+    pcpu8: {
+      measures: [
+        ProcessCPU.ProcessCPUavg
+      ],
+      dimensions: [
+        ProcessCPU.operatingsystem,
+        ProcessCPU.site,
+      ],
+      timeDimension: ProcessCPU.dtime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `3600 seconds`,
+        incremental: true,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+    },
+
+
+
   },
 });

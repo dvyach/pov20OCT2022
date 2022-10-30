@@ -185,6 +185,30 @@ cube(`Autoheal`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`,
       },
-    }
+    }, 
+    autoheal01: {
+  measures: [
+    Autoheal.autohealcount
+  ],
+  dimensions: [
+    Autoheal.ETime,
+    Autoheal.site
+  ],
+  timeDimension: Autoheal.ETime,
+  granularity: `day`,partitionGranularity: `month`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour`,
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`,
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`,
+      },
+}
   },
 });
