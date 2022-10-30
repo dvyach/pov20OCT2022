@@ -1,7 +1,7 @@
 import { db_prefix, preparePreagregations } from '../prefix';
 
 cube(`AssetDataDaily`, {
-  sql: `select from_unixtime(slatest,'%Y-%m-%d') date, id, machineid, slatest, clatest, host, site,
+  sql: `select from_unixtime(slatest,'%Y-%m-%d') date, id, machineid, slatest, clatest, host, site, dataid
       cast((value->>'$.chassismanufacturer') AS CHAR) as 'manufacturer',
       cast((value->>'$.chassistype' ) AS CHAR) as 'chassistype',
       cast((value->>'$.registeredprocessor' ) AS CHAR) as 'registeredprocessor',

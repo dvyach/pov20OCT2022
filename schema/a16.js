@@ -75,7 +75,7 @@ cube(`A16_OS_Details`, {
   },
   dimensions: {
     id: {
-      sql: `CONCAT(date, machineid, dataid,batteryname,serialnumberbattery,sbdsmanufacturedate)`,
+      sql: `CONCAT(date, machineid, dataid,serialnumberbattery,sbdsmanufacturedate)`,
       type: `number`,
       primaryKey: true,
       shown: true

@@ -247,6 +247,216 @@ cube(`CPUMemoryUtilization`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`
       }
+    },
+    cpumem1: {
+      measures: [
+        CPUMemoryUtilization.avgCPUpctgTotal
+      ],
+      dimensions: [
+        CPUMemoryUtilization.chassistype,
+        CPUMemoryUtilization.site
+      ],
+      timeDimension: CPUMemoryUtilization.ETime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    cpumem2: {
+      measures: [
+        CPUMemoryUtilization.avgCPUpctgTotal
+      ],
+      dimensions: [
+        CPUMemoryUtilization.manufacturer,
+        CPUMemoryUtilization.site
+      ],
+      timeDimension: CPUMemoryUtilization.ETime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    cpumem3: {
+      measures: [
+        CPUMemoryUtilization.avgCPUpctgTotal
+      ],
+      dimensions: [
+        CPUMemoryUtilization.registeredprocessor,
+        CPUMemoryUtilization.site
+      ],
+      timeDimension: CPUMemoryUtilization.ETime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    cpumem4: {
+      measures: [
+        CPUMemoryUtilization.avgCPUpctgTotal
+      ],
+      dimensions: [
+        CPUMemoryUtilization.processorfamily,
+        CPUMemoryUtilization.site
+      ],
+      timeDimension: CPUMemoryUtilization.ETime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    cpumem5: {
+      measures: [
+        CPUMemoryUtilization.avgCPUpctgTotal
+      ],
+      dimensions: [
+        CPUMemoryUtilization.processormanufacturer,
+        CPUMemoryUtilization.site
+      ],
+      timeDimension: CPUMemoryUtilization.ETime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    cpumem6: {
+      measures: [
+        CPUMemoryUtilization.avgCPUpctgTotal
+      ],
+      dimensions: [
+        CPUMemoryUtilization.memorysize,
+        CPUMemoryUtilization.site
+      ],
+      timeDimension: CPUMemoryUtilization.ETime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    cpumem7: {
+      measures: [
+        CPUMemoryUtilization.avgCPUpctgTotal
+      ],
+      dimensions: [
+        CPUMemoryUtilization.operatingsystem,
+        CPUMemoryUtilization.site
+      ],
+      timeDimension: CPUMemoryUtilization.ETime,
+      granularity: `day`,
+      partitionGranularity: `day`,
+      scheduledRefresh: true,
+      type: `rollup`,
+      refreshKey: {
+        every: `1800 seconds`,
+        incremental: true,
+        updateWindow: `6 hour` // sql: `SELECT MAX(dtime) FROM ${db_prefix()}event.Events`,
+
+      },
+      buildRangeStart: {
+        sql: `SELECT IFNULL(from_unixtime(MIN(servertime),'%Y-%m-%d %H:%i:%s'), current_timestamp()) FROM ${db_prefix()}event.Events`
+      },
+      buildRangeEnd: {
+        sql: `SELECT NOW()`
+      }
+    },
+    cpumem8: {
+      measures: [
+        DiskIOPerformance.dioperTotal
+      ],
+      dimensions: [
+        DiskIOPerformance.site
+      ],
+      timeDimension: DiskIOPerformance.ETime,
+      granularity: `second`
+    },
+    cpumem9: {
+      measures: [
+        CPUMemoryUtilization.avgCPUpctgTotal
+      ],
+      dimensions: [
+        CPUMemoryUtilization.site
+      ],
+      timeDimension: CPUMemoryUtilization.ETime,
+      granularity: `second`
     }
+
+
+
+
+
+
+
+
   }
 });

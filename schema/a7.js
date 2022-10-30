@@ -70,7 +70,7 @@ cube(`A7_DNS_Server_Details`, {
       type: `count`,
       sql: `machineid`,
       title: `count`,
-      drillMembers: [machineId, site, group, Device, dnsserver],
+      drillMembers: [machineId, site, Device, dnsserver],
     },
   },
   dimensions: {
@@ -92,11 +92,11 @@ cube(`A7_DNS_Server_Details`, {
       title: `Site`,
     },
 
-    group: {
-      sql: `grp`,
-      type: `string`,
-      title: `Group`,
-    },
+    // group: {
+    //   sql: `grp`,
+    //   type: `string`,
+    //   title: `Group`,
+    // },
 
     Device: {
       sql: `device`,
