@@ -200,6 +200,14 @@ cube(`ProcessCPU`, {
     //     sql: `SELECT NOW()`,
     //   },
     // },
+    pcpuxorg: {
+      type: `originalSql`,
+      scheduledRefresh: true,
+      refreshKey: {
+        every: `1 day`,
+      },
+    },
+
     pcpu1: {
       measures: [
         ProcessCPU.ProcessCPUavg
@@ -405,18 +413,18 @@ cube(`ProcessCPU`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`,
       },
-    }, 
+    },
     pcpu10: {
-  measures: [
-    ProcessCPU.ProcessCPUavg
-  ],
-  dimensions: [
-    ProcessCPU.ProcessName,
-    ProcessCPU.site
-  ],
-  timeDimension: ProcessCPU.dtime,
-  granularity: `day`,
-  partitionGranularity: `day`,
+      measures: [
+        ProcessCPU.ProcessCPUavg
+      ],
+      dimensions: [
+        ProcessCPU.ProcessName,
+        ProcessCPU.site
+      ],
+      timeDimension: ProcessCPU.dtime,
+      granularity: `day`,
+      partitionGranularity: `day`,
       scheduledRefresh: true,
       refreshKey: {
         every: `3600 seconds`,
@@ -428,7 +436,7 @@ cube(`ProcessCPU`, {
       buildRangeEnd: {
         sql: `SELECT NOW()`,
       },
-}
+    }
 
 
 
