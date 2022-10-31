@@ -318,7 +318,7 @@ cube(`Automation`, {
         Automation.TypeOfRun
       ],
       timeDimension: Automation.autoTime,
-      granularity: `second`,
+      granularity: `month`,
       partitionGranularity: `month`,
       scheduledRefresh: true,
       refreshKey: {
@@ -342,7 +342,7 @@ cube(`Automation`, {
         Automation.autoTime
       ],
       timeDimension: Automation.autoTime,
-      granularity: `second`,
+      granularity: `month`,
       partitionGranularity: `month`,
       scheduledRefresh: true,
       refreshKey: {
