@@ -120,7 +120,7 @@ from ${db_prefix()}core.Census  as C join ${db_prefix()}core.Customers Cu on C.s
       type: `originalSql`,
       scheduledRefresh: true,
       refreshKey: {
-        every: `1 day`,
+        every: `30 minute`,
       }, 
      }
     // census1: {
